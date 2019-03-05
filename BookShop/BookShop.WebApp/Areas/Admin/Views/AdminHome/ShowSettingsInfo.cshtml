@@ -1,0 +1,216 @@
+﻿@{
+    Layout = null;
+}
+@using BookShop.Model
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/themes/icon.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui-lang-zh_CN.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            loadData();
+            $("#addDiv").css("display", "none");
+            $("#editDiv").css("display", "none");
+            $("#btnSearch").click(function () {
+                var pars = {
+                    SearchKey: $("#txtSearchKey").val(),
+                    SearchValue: $("#txtSearchValue").val()
+                };
+                loadData(pars);
+            });
+        });
+
+        function loadData(pars) {
+            $('#tt').datagrid({
+                url: '/AdminHome/GetSettingsInfo',
+                title: '配置数据表格',
+                width: 700,
+                height: 400,
+                fitColumns: true, //列自适应
+                idField: 'id',//主键列的列明
+                loadMsg: '正在加载配置的信息...',
+                pagination: true,//是否有分页
+                singleSelect: false,//是否单行选择
+                pageSize: 10,//页大小，一页多少条数据
+                pageNumber: 1,//当前页，默认的
+                pageList: [10, 20, 30],
+                queryParams: pars,//往后台传递参数
+                columns: [[//c.UserName, c.UserPass, c.Email, c.RegTime
+                    { field: 'ck', checkbox: true, align: 'left', width: 50 },
+					{ field: 'id', title: '编号', width: 80 },
+					{ field: 'key', title: '键', width: 120 },
+                    { field: 'value', title: '值', width: 120 },                  
+                ]],
+                toolbar: [{
+                    id: 'btnDelete',
+                    text: '删除',
+                    iconCls: 'icon-remove',
+                    handler: function () {
+                        deleteinfo();
+                    }
+                }, {
+                    id: 'btnAdd',
+                    text: '添加',
+                    iconCls: 'icon-add',
+                    handler: function () {
+                        addinfo();
+                    }
+                }
+                , {
+                    id: 'btnEdit',
+                    text: '修改',
+                    iconCls: 'icon-edit',
+                    handler: function () {
+                        editinfo();
+                    }
+                }
+                ],
+            });
+        }
+        //修改用户信息
+        function editinfo() {
+            var rows = $('#tt').datagrid('getSelections');
+            if (rows.length != 1) {
+                $.messager.alert("提醒", "请选择一条修改的记录!", "error");
+                return;
+            }
+            else {
+                //给iframe的src属性赋值
+                $("#editDiv").css("display", "block");
+                $("#txtId").val(rows[0].id);
+                $("#txtkey").val(rows[0].key);
+                $("#txtvalue").val(rows[0].value);           
+                $('#editDiv').dialog({
+                    title: "修改用户数据",
+                    width: 300,
+                    height: 200,
+                    modal: true,
+                    buttons: [{
+                        text: '修改',
+                        iconCls: 'icon-ok',
+                        handler: function () {//需要调用子窗体中的方法
+                            $("#editForm").submit();
+                        }
+                    }, {
+                        text: '取消',
+                        handler: function () {
+                            $('#editDiv').dialog('close');
+                        }
+                    }]
+                });
+            }
+
+        }
+        //添加用户数据
+        function addinfo() {
+            $("#addDiv").css("display", "block");
+            $('#addDiv').dialog({
+                title: "添加用户数据",
+                width: 300,
+                height: 200,
+                modal: true,
+                buttons: [{
+                    text: '添加',
+                    iconCls: 'icon-ok',
+                    handler: function () {
+                        $("#addForm").submit();
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $('#addDiv').dialog('close');
+                    }
+                }]
+            });
+
+        }
+        //删除用户数据
+        function deleteinfo() {
+            var rows = $('#tt').datagrid('getSelections');
+            //判断有没有被选中
+            if (!rows || rows.length == 0) {
+                //alert("请选择要修改的商品！");
+                $.messager.alert("提醒", "请选择要删除的记录!", "error");
+                return;
+            }
+            if ($.messager.confirm("提示", "确定要删除吗？", function (r) {
+                if (r) {
+                 var str = "";
+                for (var i = 0; i < rows.length; i++) {
+                str = str + rows[i].id + ",";
+            }
+                str = str.substr(0, str.length - 1);
+                $.post("DeleteSettingsInfo", { "strId": str }, function (data) {
+                if (data == "ok") {
+                $.messager.alert("提醒", "删除成功!", "info");
+                //loadData();
+                $('#tt').datagrid('clearSelections');
+                $('#tt').datagrid('reload');
+            }
+            else {
+                $.messager.alert("提醒", "删除失败!", "info");
+            }
+            });
+            }
+            }));
+        }
+        //添加成功后执行该方法
+        function afterAdd(data) {
+            if (data == "ok") {
+                $('#addDiv').dialog('close');
+                $('#tt').datagrid('clearSelections');
+                $('#tt').datagrid('reload');
+            } else {
+                $.messager.alert("提醒", "添加失败!", "info");
+            }
+        }
+        //修改成功后执行该方法
+        function afterEdit(data) {
+            if (data == "ok") {
+                $('#editDiv').dialog('close');
+                //loadData();
+                $('#tt').datagrid('clearSelections');
+                $('#tt').datagrid('reload');
+            }
+        }
+
+    </script>
+
+</head>
+<body>
+    <div>
+        <p>
+            键：<input type="text" id="txtSearchKey" />&nbsp;&nbsp;值：<input type="text" id="txtSearchValue" />&nbsp;&nbsp;<input type="button" id="btnSearch" value="搜索" />
+        </p>
+        <table id="tt" style="width: 700px;" title="标题，可以使用代码进行初始化，也可以使用这种属性的方式" iconcls="icon-edit"></table>
+    </div>
+    <!-------------------添加用户信息----------------------->
+    <div id="addDiv">
+        @using (Ajax.BeginForm("AddSettingsInfo", new { }, new AjaxOptions() { Confirm = "确定要添加吗？", HttpMethod = "post", OnSuccess = "afterAdd" }, new { id = "addForm" }))
+        {
+            <table>
+                <tr><td>键</td><td><input type="text" name="key" /> </td></tr>
+                <tr><td>值</td><td><input type="text" name="value" /> </td></tr>                
+            </table>
+        }
+    </div>
+    <!---------------------修改用户信息---------------------------->
+    <div id="editDiv">
+        @using (Ajax.BeginForm("EditSettingsInfo", new { }, new AjaxOptions() { Confirm = "确定要修改吗？", HttpMethod = "post", OnSuccess = "afterEdit" }, new { id = "editForm" }))
+        {
+            <table>
+                <tr><td>键</td><td><input type="hidden" name="Id" id="txtId" /><input type="text" name="key" id="txtkey" /> </td></tr>
+                <tr><td>值</td><td><input type="text" name="value" id="txtvalue" /> </td></tr>              
+            </table>
+        }
+    </div>
+</body>
+</html>

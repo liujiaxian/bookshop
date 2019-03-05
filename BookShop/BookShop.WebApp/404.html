@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>出错页面</title>
+    <link href="/Content/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/Scripts/jquery.min.js"></script>
+    <!-- Custom Theme files -->
+    <!--theme-style-->
+    <link href="/Content/stylefont.css" rel="stylesheet" type="text/css" media="all" />
+    <!--//theme-style-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!--fonts-->
+    <link href='http://fonts.useso.com/css?family=Cabin:400,500,600,700' rel='stylesheet' type='text/css'>
+    <!--//fonts-->
+    <!--//slider-script-->
+    <script>
+        $(document).ready(function (c) {
+            $('.alert-close').on('click', function (c) {
+                $('.message').fadeOut('slow', function (c) {
+                    var id = $("#delcart").val();
+                    $.post("/Shop/DelCart", { id: id }, function (data) {
+                        if (data == "ok") {
+                            $('.message').remove();
+                            window.location.reload();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function (c) {
+            $('.alert-close1').on('click', function (c) {
+                $('.message1').fadeOut('slow', function (c) {
+                    var id1 = $("#delcart1").val();
+                    $.post("/Shop/DelCart", { id: id1 }, function (data) {
+                        if (data == "ok") {
+                            $('.message1').remove();
+                            window.location.reload();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function (c) {
+            $('.alert-close2').on('click', function (c) {
+                $('.message2').fadeOut('slow', function (c) {
+                    var id2 = $("#delcart2").val();
+                    $.post("/Shop/DelCart", { id: id2 }, function (data) {
+                        if (data == "ok") {
+                            $('.message2').remove();
+                            window.location.reload();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+    <script type="text/javascript" src="/Scripts/move-top.js"></script>
+    <script type="text/javascript" src="/Scripts/easing.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+            });
+        });
+    </script>
+    <!-- start menu -->
+    <link href="/Content/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="/Scripts/megamenu.js"></script>
+    <script>$(document).ready(function () { $(".megamenu").megamenu(); });</script>
+    
+</head>
+<body>
+    <!--header-->
+    <div class="container">
+        <div class="header" id="home">
+
+            <div class="header-para">
+                <p>
+                    图书商城
+                    <span>
+                        书中自有颜如玉，书中自有黄金屋。
+                    </span>
+                </p>
+            </div>
+            <ul class="header-in">
+                    <li>
+                        <a href="/Account/Index">我的账号</a>
+                    </li>
+                    <li>
+                        <a href="/Account/ForgetPwd">忘记密码</a>
+                    </li>
+                <li>
+                    <a href="/Home/Contact">联系我们</a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <!---->
+        <div class="header-top">
+            <div class="logo">
+                <a href="/Home/Index">
+                    <img src="/Images/logo.png" alt="">
+                </a>
+            </div>
+            <div class="header-top-on">
+                <ul class="social-in">
+                    <li>
+                        <a href="#">
+                            <i></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="ic"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="ic1"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="ic2"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="ic3"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="header-bottom">
+            <div class="top-nav">
+
+                <ul class="megamenu skyblue">
+                    <li class="active grid">
+                        <a href="/Home/Index">全部图书</a>
+
+                        <div class="megapanel">
+                            <div class="row">
+                                <div class="col1">
+                                    <div class="h_nav">
+                                        <ul>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=1">文艺</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=2">人文社科</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=4">童书</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=15">教育</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=16">经管</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=17">励志</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=20">科技</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=21">生活</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=22">刊/进口书</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=25">音像</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=26">电子书</a>
+                                                </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col1">
+                                    <div class="h_nav">
+                                        <ul>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=27">考研公共课</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=28">考研统考专业课</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=29">考研非统考专业课</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=31">专业硕士</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=35">考博</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=38">同等学力申硕</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=44">外语类</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=68">国家职业资格考试</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=70">公务员考试</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=71">中文类</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=72">其他</a>
+                                                </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col1">
+                                    <div class="h_nav">
+                                        <h4>图书榜</h4>
+                                        <ul>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=73">新书热卖榜</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=74">图书飙升榜</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=75">图书畅销榜</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=76">好评图书榜</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=77">电子书畅销榜</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=78">影视畅销榜</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=79">音乐畅销榜</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Home/ShopList?id=80">童书畅销榜</a>
+                                                </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="pink" href="/Home/Index">首页</a>
+                    </li>
+                    <li class="grid">
+                        <a href="/Home/ShopGifts?id=83">光盘</a>
+                    </li>
+
+                    <li>
+                        <a class="pink" href="/Home/ShopGifts?id=84">视频教程</a>
+                    </li>
+                    <li class="grid">
+                        <a href="/Home/ShopReaderList?id=85">在线阅读</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="cart icon1 sub-icon1">
+                <h6>
+                    购物车:
+                            <span class="item">亲，登录后才能查看购物车哦！</span>
+
+
+                </h6>
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="copyrights">
+            Collect from
+            <a href="/Home/Index">图书商城</a>
+        </div>
+        <div class="page">
+            <h6>
+                <a href="/Home/Index" title="点击跳转首页">公告</a> <b>|</b>
+                本站所有商品
+                <span class="for">
+                     本站所有商品 均为测试数据,不具有真实性.
+                </span>
+            </h6>
+        </div>
+        
+<div class="content">
+    <div class="four">
+        <h3>404</h3>
+        <p>The page you're looking for could not be found.</p>
+        <a href="/Home/Index" class="more ">Go back</a>
+
+    </div>
+
+</div>
+
+        <!---->
+        <div class="footer">
+            <p class="footer-class">
+                Copyright &copy; 2015.Company name All rights reserved.
+            </p>
+
+            <a href="#home" class="scroll to-Top">回到顶部!</a>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!---->
+
+<!-- Visual Studio Browser Link -->
+<script type="application/json" id="__browserLink_initializationData">
+    {"appName":"Chrome","requestId":"125090e7c25a4e67b5ecb68127cfc44a"}
+</script>
+<script type="text/javascript" src="http://localhost:3246/1c00f86bb1224426ad84ca739218f4cf/browserLink" async="async"></script>
+<!-- End Browser Link -->
+
+</body>
+</html>

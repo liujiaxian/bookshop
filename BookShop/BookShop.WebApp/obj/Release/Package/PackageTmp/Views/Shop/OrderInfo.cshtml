@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "OrderInfo";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@using BookShop.Model
+@using BookShop.Common
+@section head{
+    <link href="~/Content/PageBar.css" rel="stylesheet" />
+    <link href="~/Content/shopstyle.css" rel="stylesheet" />
+   <script src="~/Scripts/jquery.validate.min.js"></script>
+<style type="text/css">
+    .error {
+        font-size: 10px;
+        color: red;
+        padding-left: 10px;
+    }
+</style>
+<script type="text/javascript">
+
+    $().ready(function () {
+        $("#orderfrm").validate({
+            rules: {
+                ordername: {
+                    required: true,
+                },
+                orderphone: {
+                    required: true,
+                },
+                orderaddress: {
+                    required: true,
+                }
+            },
+            messages: {
+                ordername: {
+                    required: "请输入姓名！",
+                },
+                orderphone: {
+                    required: "请输入电话号码！",
+                },
+                orderaddress: {
+                    required: "请输入收货地址！",
+                }
+            }
+        });
+    });
+</script>
+}
+@{Users user = ViewData["usermodel"] as Users;}
+<div class="content">
+        <div class="check-out">
+            <div class="wish-list cartwidth">
+                @using (Html.BeginForm("OrderForm", "Shop", FormMethod.Post, new { id = "orderfrm" }))
+                {
+                <table>
+                    <tr><th>商品名称</th><th>数量</th><th>价格</th><th>折扣</th><th>小计</th></tr>
+                    @if (ViewData["cartmodel"] != null)
+                    {
+                        List<Cart> cartlist = ViewData["cartmodel"] as List<Cart>;
+                        foreach (var cart in cartlist)
+                        {
+                            decimal price = cart.Count * cart.Books.UnitPrice;
+                            <tr><td align="left" width="40%"><a href="/Home/ShopDetails?id=@cart.BookId"><img src="@string.Format("/Images/BookCovers/{0}.jpg",cart.Books.ISBN)" width="80" height="100" />&nbsp;&nbsp;&nbsp;&nbsp;@WebCommon.CurrentString(cart.Books.Title, 20)</a></td><td width="10%">@cart.Count</td><td width="10%">@cart.Books.UnitPrice.ToString("0.00")</td><td width="10%">@cart.Books.Discount</td><td width="10%">@price.ToString("0.00")</td></tr>
+                        }
+                    }
+                    else
+                    {
+                        if (ViewData["bookmodel"] != null)
+                        {
+                            Books book = ViewData["bookmodel"] as Books;
+                            int count = Convert.ToInt32(ViewData["count"]);
+                            decimal allprice = book.UnitPrice * count;
+                            <tr><td align="left" width="40%"><input type="hidden" name="bookid" value="@book.Id" /><input type="hidden" name="count" value="@count" /><a href="/Home/ShopDetails?id=@book.Id"><img src="@string.Format("/Images/BookCovers/{0}.jpg",book.ISBN)" width="80" height="100" />&nbsp;@WebCommon.CurrentString(book.Title, 20)</a></td><td width="10%">@count</td><td width="10%">@book.UnitPrice.ToString("0.00")</td><td width="10%">@book.Discount %</td><td width="10%">@allprice.ToString("0.00")</td></tr>
+                        }
+                    }
+                    <tr>
+                        <td colspan="5">
+                            <table class="account-top form-order">
+                                <tr><td align="right" width="20%">收货人姓名</td><td align="left" width="80%"><input type="hidden" name="action" value="@ViewData["action"]" /><input type="text" name="ordername" value="@user.Name" /></td></tr>
+                                <tr><td align="right" width="20%">收货人电话</td><td align="left" width="80%"><input type="text" name="orderphone" value="@user.Phone" /></td></tr>
+                                <tr><td align="right" width="20%">收货人地址</td><td align="left" width="80%"><input type="text" name="orderaddress" value="@user.Address" /></td></tr>
+                                <tr><td align="right" width="20%">支付方式</td><td align="left" width="80%"><input type="radio" name="zhifu" value="1" id="zhifubao" checked="checked" /><label for="zhifubao"><img src="/Images/y_zfb.gif" alt="支付宝支付" title="支付宝支付" /></label>&nbsp;&nbsp;<input type="radio" name="zhifu" id="wangyinzhifu" value="2" /><label for="wangyinzhifu"><img src="/Images/unionpay.gif" alt="网银支付" title="网银支付" /></label></td></tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr><td align="right" colspan="5"><span class="cart-price">￥@ViewData["totalPrice"] </span></td></tr>
+                    <tr><td align="right" colspan="5"><input type="submit" class="btn btn-default" value="提交订单" /></td></tr>
+                </table>
+                }
+                @if (ViewData["cartmodel"] != null)
+                {
+                    <p class="page_nav">
+                        @Html.Raw(MyPageBar.PageSortOrder((int)ViewBag.PageIndex, (int)ViewBag.PageCount))
+                    </p>
+                }
+            </div>
+        </div>
+</div>

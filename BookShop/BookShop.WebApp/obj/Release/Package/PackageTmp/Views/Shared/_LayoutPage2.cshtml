@@ -1,0 +1,196 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@using BookShop.IBLL
+@using BookShop.BLL
+@using BookShop.Model
+@using BookShop.Common
+@RenderSection("head", false)
+<div class="content">
+    @RenderBody()
+    <div class="col-md-3 col-md">
+
+        <div class="content-bottom-grid">
+            <h3>上架新书</h3>
+            @{BooksBLL bookbll = new BooksBLL(); var books = bookbll.LoadEntities(c => true).OrderByDescending(c => c.Id).Skip<Books>(0).Take<Books>(5).ToList();
+              foreach (var book in books)
+              {
+                <div class="latest-grid">
+                    <div class="news">
+                        <a href="/Home/ShopDetails?id=@book.Id">
+                            <img class="img-responsive" src="@string.Format("/Images/BookCovers/{0}.jpg", book.ISBN)" title="@book.Title" alt="@book.Title" style="width:53px;height:75px;">
+                        </a>
+                    </div>
+                    <div class="news-in">
+                        <h6 style="margin-bottom: 3px;">
+                            <a href="/Home/ShopDetails?id=@book.Id">@TextHide.GetSubString(book.Title, 14)</a>
+                        </h6>
+                        <p>@TextHide.GetSubString(book.ContentDescription, 40)</p>
+                        <ul style="margin-top: 3px;">
+                            <li>价格:
+                                <span>￥@book.UnitPrice.ToString("0.00")</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+              }
+            }
+        </div>
+        <div class=" possible-about">
+            <h4>最新会员</h4>
+            <div class="latest-grid">
+                @{UsersBLL userbll = new UsersBLL(); var users = userbll.LoadEntities(c => true).OrderByDescending(c => c.Id).Skip(0).Take(5).ToList();}
+                <ul style="list-style: none;">
+                    @if (users != null)
+                    {
+                        foreach (var item in users)
+                        {
+                        <li style="border-bottom: 1px dotted #EAEAEA; margin-bottom: 3px; padding-bottom: 2px;">
+                            <div style="float: left;">
+                                @if (string.IsNullOrEmpty(item.Image))
+                                {
+                                    <img src="/Images/co.png" style="width: 60px; height: 60px; border-radius: 50%;" />                                    
+                                }
+                                else
+                                {
+                                    <img src="@item.Image" style="width: 60px; height: 60px; border-radius: 50%;" />      
+                                }
+                            </div>
+                            <div style="float: left; margin-left: 10px;">
+                                <div>@item.LoginId</div>
+                                <div>@Convert.ToDateTime(item.RegTime).ToChsStr()</div>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </li>   
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+        <!---->
+        <div class="money">
+            <h3>付款方式</h3>
+            <ul class="money-in">
+                <li>
+                    <a href="/Home/ShopDetails">
+                        <img class="img-responsive" src="/Images/p1.png" title="name" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="/Home/ShopDetails">
+                        <img class="img-responsive" src="/Images/p2.png" title="name" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="/Home/ShopDetails">
+                        <img class="img-responsive" src="/Images/p3.png" title="name" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="/Home/ShopDetails">
+                        <img class="img-responsive" src="/Images/p4.png" title="name" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="/Home/ShopDetails">
+                        <img class="img-responsive" src="/Images/p5.png" title="name" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="/Home/ShopDetails">
+                        <img class="img-responsive" src="/Images/p6.png" title="name" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="/Home/ShopDetails">
+                        <img class="img-responsive" src="/Images/p1.png" title="name" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="/Home/ShopDetails">
+                        <img class="img-responsive" src="/Images/p4.png" title="name" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="/Home/ShopDetails">
+                        <img class="img-responsive" src="/Images/p2.png" title="name" alt="">
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <br />
+    @{
+        List<Books> bookslist = new List<Books>();
+        if (Request.Cookies["bookrecord"] != null && Request.Cookies["bookrecord"].Value.IndexOf(',') != -1)
+        {
+            string[] str = Request.Cookies["bookrecord"].Value.Split(',');
+            for (int i = 0; i < str.Length - 1; i++)
+            {
+                int bookid = Convert.ToInt32(str[i]);
+                var bookmodel = bookbll.LoadEntities(c => c.Id == bookid).FirstOrDefault();
+                if (bookmodel != null)
+                {
+                    bookslist.Add(bookmodel);
+                }
+            }
+        }
+    }
+
+
+    @if (bookslist != null)
+    {
+        <h3 style="padding: 20px;">最近浏览过的图书 @bookslist.Count</h3>
+        <ul id="flexiselDemo1">
+            @foreach (var item in bookslist)
+            {
+            <li>
+                <a href="/Home/ShopDetails?id=@item.Id">
+                    <img src="@string.Format("/Images/BookCovers/{0}.jpg", item.ISBN)" style="width:129px;height:200px" />
+                    <div class="grid-flex">
+                        @WebCommon.CurrentString(item.Title, 15)
+
+                        <p>￥ @item.UnitPrice.ToString("0.00")</p>
+                    </div>
+                </a>
+            </li>
+            }
+        </ul>
+    }
+
+    <script type="text/javascript">
+        $(window).load(function () {
+            $("#flexiselDemo1").flexisel({
+                visibleItems: '@(bookslist.Count <= 6 ? bookslist.Count : 6)',
+                animationSpeed: 1000,
+                autoPlay: '@(bookslist.Count <= 6 ? false : true)',
+                        autoPlaySpeed: 3000,
+                        pauseOnHover: true,
+                        enableResponsiveBreakpoints: true,
+                        responsiveBreakpoints: {
+                            portrait: {
+                                changePoint: 480,
+                                visibleItems: 1
+                            },
+                            landscape: {
+                                changePoint: 640,
+                                visibleItems: 2
+                            },
+                            tablet: {
+                                changePoint: 768,
+                                visibleItems: 3
+                            }
+                        }
+            });
+
+        });
+    </script>
+    <script type="text/javascript" src="/Scripts/jquery.flexisel.js"></script>
+</div>
+
+<script type="text/javascript">
+    $(".single-bottom").find("")
+</script>

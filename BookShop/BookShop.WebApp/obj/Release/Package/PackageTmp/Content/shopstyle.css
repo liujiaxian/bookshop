@@ -1,0 +1,40 @@
+﻿
+.cartwidth {
+    width: 95%;
+    border: none;
+    margin-top: -90px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+    table tr th {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #E3EBED;
+        text-align: center;
+    }
+
+    table tr td {
+        padding: 5px;
+        border-bottom: 1px solid #E3EBED;
+    }
+
+    table .btn-default {
+        background-color: #F02B63;
+        border-color: #F02B63;
+        color: white;
+    }
+
+        table .btn-default:hover {
+            background-color: #4CB1CA;
+            border-color: #4CB1CA;
+        }
+
+    table .cart-price {
+        font-size: 30px;
+        font-weight: bold;
+        color: red;
+    }

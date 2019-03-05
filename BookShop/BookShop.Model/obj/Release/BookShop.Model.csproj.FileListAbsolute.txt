@@ -1,0 +1,17 @@
+G:\Users\liujiaxian\Videos\bishe\BookShop\BookShop.Model\bin\Release\BookShop.Model.dll.config
+G:\Users\liujiaxian\Videos\bishe\BookShop\BookShop.Model\bin\Release\BookShop.Model.dll
+G:\Users\liujiaxian\Videos\bishe\BookShop\BookShop.Model\bin\Release\BookShop.Model.pdb
+G:\Users\liujiaxian\Videos\bishe\BookShop\BookShop.Model\bin\Release\EntityFramework.dll
+G:\Users\liujiaxian\Videos\bishe\BookShop\BookShop.Model\bin\Release\EntityFramework.xml
+G:\Users\liujiaxian\Videos\bishe\BookShop\BookShop.Model\bin\Release\zh-Hans\EntityFramework.resources.dll
+G:\Users\liujiaxian\Videos\bishe\BookShop\BookShop.Model\obj\Release\BookShop.Model.dll
+G:\Users\liujiaxian\Videos\bishe\BookShop\BookShop.Model\obj\Release\BookShop.Model.pdb
+E:\bookshop\bookshop\BookShop\BookShop.Model\bin\Release\BookShop.Model.dll.config
+E:\bookshop\bookshop\BookShop\BookShop.Model\bin\Release\BookShop.Model.dll
+E:\bookshop\bookshop\BookShop\BookShop.Model\bin\Release\BookShop.Model.pdb
+E:\bookshop\bookshop\BookShop\BookShop.Model\bin\Release\EntityFramework.dll
+E:\bookshop\bookshop\BookShop\BookShop.Model\bin\Release\EntityFramework.xml
+E:\bookshop\bookshop\BookShop\BookShop.Model\bin\Release\zh-Hans\EntityFramework.resources.dll
+E:\bookshop\bookshop\BookShop\BookShop.Model\obj\Release\BookShop.Model.csprojResolveAssemblyReference.cache
+E:\bookshop\bookshop\BookShop\BookShop.Model\obj\Release\BookShop.Model.dll
+E:\bookshop\bookshop\BookShop\BookShop.Model\obj\Release\BookShop.Model.pdb

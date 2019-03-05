@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "搜索";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@using BookShop.WebApp.Models
+@using BookShop.Model
+@using BookShop.Common
+@section head{
+    <link href="~/Content/PageBar.css" rel="stylesheet" />
+}
+<div class="content">
+    <div class="content-bottom store">
+        <h3>@ViewData["searchname"].ToString() 图书</h3>
+        @{List<SearchContent> bookslist = ViewData["list"] as List<SearchContent>; int i = 1; int j = 0; }
+        @foreach (var item in bookslist)
+        {
+            if (j == 0 || j % 4 == 0)
+            {
+                @Html.Raw(ViewData["booktop"].ToString())
+            }
+            <div class="col-md-3 store-top">
+                <div class="bottom-grid-top">
+                    <a href="/Home/ShopDetails?id=@item.Id">
+                        <img class="img-responsive" src="@string.Format("/Images/BookCovers/{0}.jpg", item.ISBN)" alt="" style="height:262px !important;">
+                    </a>
+                        <div class="five">
+                            <h6 class="one">@(item.Discount * 1.0 / 10)折</h6>
+                        </div>
+                        <div class="pre" style="height:100px;">
+                            <p><a href="/Home/ShopDetails?id=@item.Id">@WebCommon.CurrentString(item.Title, 15)</a></p><br />
+                            <p style="font-size:12px;height:50px;">@WebCommon.CurrentString(item.Msg, 50)</p>
+                            <div><span class="pull-right" style="font-size:18px;font-weight:bold;">￥@item.Price.ToString("0.00")</span></div>
+                            <div class="clearfix"></div>
+                        </div>                    
+                </div>
+            </div>
+            if (i % 4 == 0)
+            {
+                @Html.Raw(ViewData["bookfoot"].ToString())
+            }
+            i++;
+            j++;
+        }
+        @if (bookslist.Count < 12 && bookslist.Count > 0)
+        {
+            @Html.Raw(ViewData["bookfoot"].ToString())
+        }
+    </div>
+    <p class="page_nav">
+        @Html.Raw(MyPageBar.PageSortSearch((int)ViewBag.PageIndex, (int)ViewBag.PageCount, ViewData["searchname"].ToString()))
+    </p>
+</div>

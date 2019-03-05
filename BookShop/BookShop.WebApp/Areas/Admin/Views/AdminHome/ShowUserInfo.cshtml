@@ -1,0 +1,315 @@
+﻿@{
+    Layout = null;
+}
+@using BookShop.Model
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/themes/icon.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui-lang-zh_CN.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            loadData();
+            $("#addDiv").css("display", "none");
+            $("#editDiv").css("display", "none");
+            $("#btnSearch").click(function () {
+                var pars = {
+                    SearchName: $("#txtName").val(),
+                    SearchEmail: $("#txtEmail").val(),
+                    SearchRole: $("#txtRole").val(),
+                    SearchState: $("#txtState").val()
+                };
+                loadData(pars);
+            });
+        });
+
+        function loadData(pars) {
+            $('#tt').datagrid({
+                url: '/AdminHome/GetUserInfo',
+                title: '用户数据表格',
+                width: 1000,
+                height: 400,
+                fitColumns: true, //列自适应
+                idField: 'Id',//主键列的列明
+                loadMsg: '正在加载用户的信息...',
+                pagination: true,//是否有分页
+                singleSelect: false,//是否单行选择
+                pageSize: 10,//页大小，一页多少条数据
+                pageNumber: 1,//当前页，默认的
+                pageList: [10, 20, 30],
+                queryParams: pars,//往后台传递参数
+                columns: [[//c.UserName, c.UserPass, c.Email, c.RegTime
+                    { field: 'ck', checkbox: true, align: 'left', width: 50 },
+					{ field: 'Id', title: '编号', width: 80 },
+					{ field: 'LoginId', title: '用户名', width: 120 },
+                     { field: 'LoginPwd', title: '密码', width: 120 },
+                     { field: 'Name', title: '姓名', width: 120 },
+                     { field: 'Address', title: '地址', width: 120 },
+                     { field: 'Phone', title: '电话', width: 120 },
+                      { field: 'Mail', title: '邮箱', width: 120 },
+                      { field: 'UserRole', title: '角色', width: 120 },
+                      { field: 'UserState', title: '状态', width: 120 },
+                      { field: 'Money', title: '金额', width: 120 },
+					{
+					    field: 'RegTime', title: '时间', width: 80, align: 'right',
+					    formatter: function (value, row, index) {// value:值。 row:JSON对象.
+					        return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d");
+					    }
+					}
+                ]],
+                toolbar: [{
+                    id: 'btnDelete',
+                    text: '删除',
+                    iconCls: 'icon-remove',
+                    handler: function () {
+                        deleteinfo();
+                    }
+                }, {
+                    id: 'btnAdd',
+                    text: '添加',
+                    iconCls: 'icon-add',
+                    handler: function () {
+                        addinfo();
+                    }
+                }
+                , {
+                    id: 'btnEdit',
+                    text: '修改',
+                    iconCls: 'icon-edit',
+                    handler: function () {
+                        editinfo();
+                    }
+                }
+                ],
+            });
+        }
+        //修改用户信息
+        function editinfo() {
+            var rows = $('#tt').datagrid('getSelections');
+            if (rows.length != 1) {
+                $.messager.alert("提醒", "请选择要修改的记录!", "error");
+                return;
+            }
+            else {
+                //给iframe的src属性赋值
+                $("#editDiv").css("display", "block");
+                $("#txtId").val(rows[0].Id);
+                $("#txtLoginId").val(rows[0].LoginId);
+                $("#txtLoginPwd").val(rows[0].LoginPwd);
+                $("#txtRealName").val(rows[0].Name);
+                $("#txtAddress").val(rows[0].Address);
+                $("#txtPhone").val(rows[0].Phone);
+                $("#txtMail").val(rows[0].Mail);
+                $("#txtRoleInfo").val(rows[0].UserRole);
+                $("#txtStateInfo").val(rows[0].UserState);
+                $("#txtMoney").val(rows[0].Money);
+                $('#editDiv').dialog({
+                    title: "修改用户数据",
+                    width: 400,
+                    height: 350,
+                    modal: true,
+                    buttons: [{
+                        text: '修改',
+                        iconCls: 'icon-ok',
+                        handler: function () {//需要调用子窗体中的方法
+                            $("#editForm").submit();
+                        }
+                    }, {
+                        text: '取消',
+                        handler: function () {
+                            $('#editDiv').dialog('close');
+                        }
+                    }]
+                });
+            }
+
+        }
+        //添加用户数据
+        function addinfo() {
+            $("#addDiv").css("display", "block");
+            $('#addDiv').dialog({
+                title: "添加用户数据",
+                width: 300,
+                height: 300,
+                modal: true,
+                buttons: [{
+                    text: '添加',
+                    iconCls: 'icon-ok',
+                    handler: function () {
+                        $("#addForm").submit();
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $('#addDiv').dialog('close');
+                    }
+                }]
+            });
+
+        }
+        //删除用户数据
+        function deleteinfo() {
+            var rows = $('#tt').datagrid('getSelections');
+            //判断有没有被选中
+            if (!rows || rows.length == 0) {
+                //alert("请选择要修改的商品！");
+                $.messager.alert("提醒", "请选择要删除的记录!", "error");
+                return;
+            }
+            if ($.messager.confirm("提示", "确定要删除吗？", function (r) {
+                if (r) {
+                 var str = "";
+                for (var i = 0; i < rows.length; i++) {
+                str = str + rows[i].Id + ",";
+            }
+                str = str.substr(0, str.length - 1);
+                $.post("DeleteUserInfo", { "strId": str }, function (data) {
+                if (data == "ok") {
+                $.messager.alert("提醒", "删除成功!", "info");
+                //loadData();
+                $('#tt').datagrid('clearSelections');
+                $('#tt').datagrid('reload');
+            }
+            else {
+                $.messager.alert("提醒", "删除失败!", "info");
+            }
+            });
+            }
+            }));
+        }
+        //添加成功后执行该方法
+        function afterAdd(data) {
+            if (data == "ok") {
+                $('#addDiv').dialog('close');
+                //loadData();
+                $('#tt').datagrid('clearSelections');
+                $('#tt').datagrid('reload');
+            } else {
+                $.messager.alert("提醒", "添加失败!", "info");
+            }
+        }
+        //修改成功后执行该方法
+        function afterEdit(data) {
+            if (data == "ok") {
+                $('#editDiv').dialog('close');
+                //loadData();
+                $('#tt').datagrid('clearSelections');
+                $('#tt').datagrid('reload');
+            }
+        }
+
+    </script>
+
+</head>
+<body>
+    <div>
+        <p>
+            用户名：<input type="text" id="txtName" />&nbsp;&nbsp;邮箱：<input type="text" id="txtEmail" />&nbsp;&nbsp;角色：<select id="txtRole">
+                <option>全部</option>
+                @if (ViewData["rolelist"] != null)
+                {
+                    foreach (RoleInfo role in ViewData["rolelist"] as List<RoleInfo>)
+                    {
+                        <option>@role.RoleName</option>
+                    }
+                }
+            </select>&nbsp;&nbsp;状态：<select id="txtState">
+                <option>全部</option>
+                @if (ViewData["statelist"] != null)
+                {
+                    foreach (UserStates state in ViewData["statelist"] as List<UserStates>)
+                    {
+                        <option>@state.Name</option>
+                    }
+                }
+            </select>&nbsp;&nbsp;<input type="button" id="btnSearch" value="搜索" />
+        </p>
+        <table id="tt" style="width: 700px;" title="标题，可以使用代码进行初始化，也可以使用这种属性的方式" iconcls="icon-edit"></table>
+    </div>
+    <!-------------------添加用户信息----------------------->
+    <div id="addDiv">
+        @using (Ajax.BeginForm("AddUserInfo", new { }, new AjaxOptions() { Confirm = "确定要添加吗？", HttpMethod = "post", OnSuccess = "afterAdd" }, new { id = "addForm" }))
+        {
+            <table>
+                <tr><td>用户名</td><td><input type="text" name="LoginId" /> </td></tr>
+                <tr><td>密码</td><td><input type="text" name="LoginPwd" /> </td></tr>
+                <tr><td>姓名</td><td><input type="text" name="Name" /> </td></tr>
+                <tr><td>地址</td><td><input type="text" name="Address" /> </td></tr>
+                <tr><td>电话</td><td><input type="text" name="Phone" /> </td></tr>
+                <tr><td>邮箱</td><td><input type="text" name="Mail" /> </td></tr>
+                <tr>
+                    <td>角色</td>
+                    <td>
+                        <select name="UserRoleId">
+                            @{List<RoleInfo> roleinfo = ViewData["rolelist"] as List<RoleInfo>;}
+                            @foreach (RoleInfo role in roleinfo)
+                            {
+                                <option>@role.RoleName</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>状态</td>
+                    <td>
+                        <select name="UserStateId">
+                            @{List<UserStates> stateinfo = ViewData["statelist"] as List<UserStates>;}
+                            @foreach (UserStates state in stateinfo)
+                            {
+                                <option>@state.Name</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr><td>金额</td><td><input type="text" name="Money" /> </td></tr>
+            </table>
+        }
+    </div>
+    <!---------------------修改用户信息---------------------------->
+    <div id="editDiv">
+        @using (Ajax.BeginForm("EditUserInfo", new { }, new AjaxOptions() { Confirm = "确定要修改吗？", HttpMethod = "post", OnSuccess = "afterEdit" }, new { id = "editForm" }))
+        {
+            <table>
+                <tr><td>用户名</td><td><input type="hidden" name="Id" id="txtId" /> <input type="text" name="LoginId" id="txtLoginId" /> </td></tr>
+                <tr><td>密码</td><td><input type="text" name="LoginPwd" id="txtLoginPwd" /> </td></tr>
+                <tr><td>姓名</td><td><input type="text" name="Name" id="txtRealName" /></td></tr>
+                <tr><td>地址</td><td><input type="text" name="Address" id="txtAddress" /> </td></tr>
+                <tr><td>电话</td><td><input type="text" name="Phone" id="txtPhone" /> </td></tr>
+                <tr><td>邮箱</td><td><input type="text" name="Mail" id="txtMail" /> </td></tr>
+                <tr>
+                    <td>角色</td>
+                    <td>
+                        <select name="UserRoleId" id="txtRoleInfo">
+                            @{List<RoleInfo> roleinfo = ViewData["rolelist"] as List<RoleInfo>;}
+                            @foreach (RoleInfo role in roleinfo)
+                            {
+                                <option>@role.RoleName</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>状态</td>
+                    <td>
+                        <select name="UserStateId" id="txtStateInfo">
+                            @{List<UserStates> stateinfo = ViewData["statelist"] as List<UserStates>;}
+                            @foreach (UserStates state in stateinfo)
+                            {
+                                <option>@state.Name</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr><td>金额</td><td><input type="text" name="Money" id="txtMoney" /> </td></tr>
+            </table>
+        }
+    </div>
+</body>
+</html>

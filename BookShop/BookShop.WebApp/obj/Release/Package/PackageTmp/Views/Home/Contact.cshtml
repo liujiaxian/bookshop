@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "联系我们";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@section head{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <style type="text/css">
+        .error {
+            font-size: 10px;
+            color: red;
+            padding-left: 60px;
+        }
+    </style>
+    <script type="text/javascript">
+        $().ready(function () {
+            $("#contactfrm").validate({
+                rules: {
+                    Name: {
+                        required: true,                        
+                    },
+                    Email: {
+                        required: true,
+                        email: true,
+                    },
+                    Content: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    Name: {
+                        required: "请输入真实姓名！",                        
+                    },
+                    Email: {
+                        required: "请输入正确的邮箱！",
+                        email: "邮箱格式的不正确！"
+                    },
+                    Content: {
+                        required: "请输入内容！",
+                    }
+                }
+            });
+        });
+    </script>
+}
+    <div class="content">
+        <!---->
+        <div class="contact">
+            <div class="col-md-8 contact-top">
+                <h3>想跟我一起工作吗?</h3>
+                <form action="/Home/Contact" method="post" id="contactfrm">
+                    <div>
+                        <span>姓名*</span>
+                        <input type="text" name="Name">
+                    </div>
+                    <div>
+                        <span class="me-at">邮箱*</span>
+                        <input type="text" name="Email">
+                    </div>
+                    <div>
+                        <span class="word-in">内容*</span>
+                        <textarea name="Content"></textarea>
+                    </div>
+                    <input type="submit" value="提交">
+                </form>
+            </div>
+            <div class="col-md-4 contact-bottom">
+                <h3>信息</h3>
+                <ul class="social ">
+                    <li>
+                        <span>广东省中山市博爱七路25号</span>
+                    </li>
+                    <li>
+                        <span>+ 00 123 456 7890</span>
+                    </li>
+                    <li>
+                        <a href="mailto:info@example.com">info@example.com</a>
+                    </li>
+                </ul>
+
+                <div class="map">
+                    <iframe src="/baidumap.html" frameborder=0 scrolling=no></iframe>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>

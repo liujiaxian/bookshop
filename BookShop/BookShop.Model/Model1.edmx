@@ -1,0 +1,1512 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="bookshopModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="bookshopModelStoreContainer">
+          <EntitySet Name="ActionInfo" EntityType="bookshopModel.Store.ActionInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ArticelWords" EntityType="bookshopModel.Store.ArticelWords" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BookComment" EntityType="bookshopModel.Store.BookComment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Books" EntityType="bookshopModel.Store.Books" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Cart" EntityType="bookshopModel.Store.Cart" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Categories" EntityType="bookshopModel.Store.Categories" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Contact" EntityType="bookshopModel.Store.Contact" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EmailActive" EntityType="bookshopModel.Store.EmailActive" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="HotCount" EntityType="bookshopModel.Store.HotCount" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="keyWordsRank" EntityType="bookshopModel.Store.keyWordsRank" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OrderBook" EntityType="bookshopModel.Store.OrderBook" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Orders" EntityType="bookshopModel.Store.Orders" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PayInfo_del" EntityType="bookshopModel.Store.PayInfo_del" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PdfReader" EntityType="bookshopModel.Store.PdfReader" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Publishers" EntityType="bookshopModel.Store.Publishers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="recommend_log" EntityType="bookshopModel.Store.recommend_log" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="recommend_rating" EntityType="bookshopModel.Store.recommend_rating" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RoleInfo" EntityType="bookshopModel.Store.RoleInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SearchDatails" EntityType="bookshopModel.Store.SearchDatails" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Settings" EntityType="bookshopModel.Store.Settings" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="T_Email" EntityType="bookshopModel.Store.T_Email" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="bookshopModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserStates" EntityType="bookshopModel.Store.UserStates" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Book_Category" Association="bookshopModel.Store.FK_Book_Category">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookComment_Books" Association="bookshopModel.Store.FK_BookComment_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="BookComment" EntitySet="BookComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookComment_Users" Association="bookshopModel.Store.FK_BookComment_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BookComment" EntitySet="BookComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Books_Publishers" Association="bookshopModel.Store.FK_Books_Publishers">
+            <End Role="Publishers" EntitySet="Publishers" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_Books" Association="bookshopModel.Store.FK_Cart_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_Users" Association="bookshopModel.Store.FK_Cart_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailActive_Users" Association="bookshopModel.Store.FK_EmailActive_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="EmailActive" EntitySet="EmailActive" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User" Association="bookshopModel.Store.FK_Order_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderBook_Book" Association="bookshopModel.Store.FK_OrderBook_Book">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="OrderBook" EntitySet="OrderBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderBook_Order" Association="bookshopModel.Store.FK_OrderBook_Order">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderBook" EntitySet="OrderBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PayInfo_Users" Association="bookshopModel.Store.FK_PayInfo_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PayInfo_del" EntitySet="PayInfo_del" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PdfReader_Books" Association="bookshopModel.Store.FK_PdfReader_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="PdfReader" EntitySet="PdfReader" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PdfReader_Users" Association="bookshopModel.Store.FK_PdfReader_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PdfReader" EntitySet="PdfReader" />
+          </AssociationSet>
+          <AssociationSet Name="FK_recommend_rating_Books" Association="bookshopModel.Store.FK_recommend_rating_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="recommend_rating" EntitySet="recommend_rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_recommend_rating_Users" Association="bookshopModel.Store.FK_recommend_rating_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="recommend_rating" EntitySet="recommend_rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleInfo_ActionInfo" Association="bookshopModel.Store.FK_RoleInfo_ActionInfo">
+            <End Role="ActionInfo" EntitySet="ActionInfo" />
+            <End Role="RoleInfo" EntitySet="RoleInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_RoleInfo" Association="bookshopModel.Store.FK_Users_RoleInfo">
+            <End Role="RoleInfo" EntitySet="RoleInfo" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_UserStates" Association="bookshopModel.Store.FK_Users_UserStates">
+            <End Role="UserStates" EntitySet="UserStates" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ActionInfo">
+          <Key>
+            <PropertyRef Name="ActionId" />
+          </Key>
+          <Property Name="ActionId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ActionName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ActionUrl" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remark" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ArticelWords">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="WordPattern" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="IsForbid" Type="bit" Nullable="false" />
+          <Property Name="IsMod" Type="bit" Nullable="false" />
+          <Property Name="ReplaceWord" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="BookComment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Msg" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="BookId" Type="int" Nullable="false" />
+          <Property Name="RegTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Books">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="Author" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="PublisherId" Type="int" Nullable="false" />
+          <Property Name="PublishDate" Type="datetime" Nullable="false" />
+          <Property Name="ISBN" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="WordsCount" Type="int" Nullable="false" />
+          <Property Name="UnitPrice" Type="money" Nullable="false" />
+          <Property Name="ContentDescription" Type="nvarchar(max)" />
+          <Property Name="AurhorDescription" Type="nvarchar(max)" />
+          <Property Name="EditorComment" Type="nvarchar(max)" />
+          <Property Name="TOC" Type="nvarchar(max)" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="Store" Type="int" />
+          <Property Name="Discount" Type="int" Nullable="false" />
+          <Property Name="Pdfname" Type="nvarchar" MaxLength="50" />
+          <Property Name="rating" Type="float" />
+          <Property Name="hotcount" Type="int" />
+        </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="BookId" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="PId" Type="int" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Regtime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmailActive">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ActiveState" Type="bit" Nullable="false" />
+          <Property Name="ActiveToken" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ActiveTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HotCount">
+          <Key>
+            <PropertyRef Name="hotID" />
+          </Key>
+          <Property Name="hotID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ipAddress" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="bookID" Type="int" Nullable="false" />
+          <Property Name="addTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="keyWordsRank">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="KeyWords" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="SearchTimes" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderBook">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="BookID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="UnitPrice" Type="decimal" Nullable="false" Scale="2" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="TotalPrice" Type="decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="PostAddress" Type="nvarchar" MaxLength="255" />
+          <Property Name="state" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PayInfo_del">
+          <Key>
+            <PropertyRef Name="Guid" />
+          </Key>
+          <Property Name="Guid" Type="char" Nullable="false" MaxLength="32" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Money" Type="money" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="255" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="State" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PdfReader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="BookId" Type="int" Nullable="false" />
+          <Property Name="ReadTime" Type="datetime" Nullable="false" />
+          <Property Name="Token" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Publishers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="recommend_log">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="userID" Type="int" Nullable="false" />
+          <Property Name="itemID" Type="int" Nullable="false" />
+          <Property Name="behaviorType" Type="nvarchar" MaxLength="1024" />
+          <Property Name="context" Type="nvarchar" MaxLength="1024" />
+          <Property Name="behaviorWeight" Type="nvarchar" MaxLength="50" />
+          <Property Name="behaviorContent" Type="nvarchar" MaxLength="1024" />
+          <Property Name="addTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="recommend_rating">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="bookID" Type="int" />
+          <Property Name="userID" Type="int" />
+          <Property Name="stars" Type="float" />
+          <Property Name="addTime" Type="datetime" />
+          <Property Name="updateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RoleInfo">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="RoleDesc" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActionId" Type="int" />
+        </EntityType>
+        <EntityType Name="SearchDatails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="KeyWords" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="SearchDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Settings">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="key" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="value" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="bookid" Type="int" />
+        </EntityType>
+        <EntityType Name="T_Email">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Emaillast" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Emailurl" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LoginId" Type="nvarchar" MaxLength="50" />
+          <Property Name="LoginPwd" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="100" />
+          <Property Name="Mail" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="UserRoleId" Type="int" Nullable="false" />
+          <Property Name="UserStateId" Type="int" Nullable="false" />
+          <Property Name="Money" Type="money" Nullable="false" />
+          <Property Name="UserActive" Type="bit" />
+          <Property Name="Image" Type="nvarchar" MaxLength="50" />
+          <Property Name="RegTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserStates">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Book_Category">
+          <End Role="Categories" Type="bookshopModel.Store.Categories" Multiplicity="1" />
+          <End Role="Books" Type="bookshopModel.Store.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookComment_Books">
+          <End Role="Books" Type="bookshopModel.Store.Books" Multiplicity="1" />
+          <End Role="BookComment" Type="bookshopModel.Store.BookComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookComment">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookComment_Users">
+          <End Role="Users" Type="bookshopModel.Store.Users" Multiplicity="0..1" />
+          <End Role="BookComment" Type="bookshopModel.Store.BookComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookComment">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_Publishers">
+          <End Role="Publishers" Type="bookshopModel.Store.Publishers" Multiplicity="1" />
+          <End Role="Books" Type="bookshopModel.Store.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publishers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="PublisherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_Books">
+          <End Role="Books" Type="bookshopModel.Store.Books" Multiplicity="1" />
+          <End Role="Cart" Type="bookshopModel.Store.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_Users">
+          <End Role="Users" Type="bookshopModel.Store.Users" Multiplicity="1" />
+          <End Role="Cart" Type="bookshopModel.Store.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailActive_Users">
+          <End Role="Users" Type="bookshopModel.Store.Users" Multiplicity="1" />
+          <End Role="EmailActive" Type="bookshopModel.Store.EmailActive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailActive">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User">
+          <End Role="Users" Type="bookshopModel.Store.Users" Multiplicity="1" />
+          <End Role="Orders" Type="bookshopModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderBook_Book">
+          <End Role="Books" Type="bookshopModel.Store.Books" Multiplicity="1" />
+          <End Role="OrderBook" Type="bookshopModel.Store.OrderBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderBook">
+              <PropertyRef Name="BookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderBook_Order">
+          <End Role="Orders" Type="bookshopModel.Store.Orders" Multiplicity="1" />
+          <End Role="OrderBook" Type="bookshopModel.Store.OrderBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="OrderBook">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PayInfo_Users">
+          <End Role="Users" Type="bookshopModel.Store.Users" Multiplicity="1" />
+          <End Role="PayInfo_del" Type="bookshopModel.Store.PayInfo_del" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PayInfo_del">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PdfReader_Books">
+          <End Role="Books" Type="bookshopModel.Store.Books" Multiplicity="1" />
+          <End Role="PdfReader" Type="bookshopModel.Store.PdfReader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PdfReader">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PdfReader_Users">
+          <End Role="Users" Type="bookshopModel.Store.Users" Multiplicity="1" />
+          <End Role="PdfReader" Type="bookshopModel.Store.PdfReader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PdfReader">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_recommend_rating_Books">
+          <End Role="Books" Type="bookshopModel.Store.Books" Multiplicity="0..1" />
+          <End Role="recommend_rating" Type="bookshopModel.Store.recommend_rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="recommend_rating">
+              <PropertyRef Name="bookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_recommend_rating_Users">
+          <End Role="Users" Type="bookshopModel.Store.Users" Multiplicity="0..1" />
+          <End Role="recommend_rating" Type="bookshopModel.Store.recommend_rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="recommend_rating">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleInfo_ActionInfo">
+          <End Role="ActionInfo" Type="bookshopModel.Store.ActionInfo" Multiplicity="0..1" />
+          <End Role="RoleInfo" Type="bookshopModel.Store.RoleInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActionInfo">
+              <PropertyRef Name="ActionId" />
+            </Principal>
+            <Dependent Role="RoleInfo">
+              <PropertyRef Name="ActionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_RoleInfo">
+          <End Role="RoleInfo" Type="bookshopModel.Store.RoleInfo" Multiplicity="1" />
+          <End Role="Users" Type="bookshopModel.Store.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleInfo">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="UserRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_UserStates">
+          <End Role="UserStates" Type="bookshopModel.Store.UserStates" Multiplicity="1" />
+          <End Role="Users" Type="bookshopModel.Store.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserStates">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="UserStateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="CreateOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OrderId" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="Address" Type="nvarchar" Mode="In" />
+          <Parameter Name="TotalPrice" Type="money" Mode="InOut" />
+        </Function>
+        <Function Name="Pro_GetPagedList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="start" Type="int" Mode="In" />
+          <Parameter Name="end" Type="int" Mode="In" />
+          <Parameter Name="category" Type="int" Mode="In" />
+          <Parameter Name="order" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Pro_OrderCreate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OrderNmber" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="Address" Type="nvarchar" Mode="In" />
+          <Parameter Name="TotalMoney" Type="money" Mode="InOut" />
+        </Function>
+        <Function Name="Pro_Page" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tblName" Type="varchar" Mode="In" />
+          <Parameter Name="strGetFields" Type="varchar" Mode="In" />
+          <Parameter Name="fldName" Type="varchar" Mode="In" />
+          <Parameter Name="PageSize" Type="int" Mode="In" />
+          <Parameter Name="PageIndex" Type="int" Mode="In" />
+          <Parameter Name="doCount" Type="bit" Mode="In" />
+          <Parameter Name="OrderType" Type="bit" Mode="In" />
+          <Parameter Name="strWhere" Type="varchar" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bookshopModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="bookshopEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="CreateOrderTest">
+            <Parameter Name="OrderId" Mode="In" Type="String" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="TotalPrice" Mode="InOut" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="Pro_CreateOrder">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="OrderNumber" Mode="In" Type="String" />
+            <Parameter Name="PostAddress" Mode="In" Type="String" />
+            <Parameter Name="TotalPrice" Mode="InOut" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="Pro_GetPagedList">
+            <Parameter Name="start" Mode="In" Type="Int32" />
+            <Parameter Name="end" Mode="In" Type="Int32" />
+            <Parameter Name="category" Mode="In" Type="Int32" />
+            <Parameter Name="order" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Pro_OrderCreate">
+            <Parameter Name="OrderNmber" Mode="In" Type="String" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="TotalMoney" Mode="InOut" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="Pro_Page">
+            <Parameter Name="tblName" Mode="In" Type="String" />
+            <Parameter Name="strGetFields" Mode="In" Type="String" />
+            <Parameter Name="fldName" Mode="In" Type="String" />
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="PageIndex" Mode="In" Type="Int32" />
+            <Parameter Name="doCount" Mode="In" Type="Boolean" />
+            <Parameter Name="OrderType" Mode="In" Type="Boolean" />
+            <Parameter Name="strWhere" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="CreateOrder">
+            <Parameter Name="OrderId" Mode="In" Type="String" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="TotalPrice" Mode="InOut" Type="Decimal" />
+          </FunctionImport>
+          <EntitySet Name="ActionInfo" EntityType="bookshopModel.ActionInfo" />
+          <EntitySet Name="ArticelWords" EntityType="bookshopModel.ArticelWords" />
+          <EntitySet Name="BookComment" EntityType="bookshopModel.BookComment" />
+          <EntitySet Name="Books" EntityType="bookshopModel.Books" />
+          <EntitySet Name="Cart" EntityType="bookshopModel.Cart" />
+          <EntitySet Name="Categories" EntityType="bookshopModel.Categories" />
+          <EntitySet Name="Contact" EntityType="bookshopModel.Contact" />
+          <EntitySet Name="EmailActive" EntityType="bookshopModel.EmailActive" />
+          <EntitySet Name="HotCount" EntityType="bookshopModel.HotCount" />
+          <EntitySet Name="keyWordsRank" EntityType="bookshopModel.keyWordsRank" />
+          <EntitySet Name="OrderBook" EntityType="bookshopModel.OrderBook" />
+          <EntitySet Name="Orders" EntityType="bookshopModel.Orders" />
+          <EntitySet Name="PayInfo_del" EntityType="bookshopModel.PayInfo_del" />
+          <EntitySet Name="PdfReader" EntityType="bookshopModel.PdfReader" />
+          <EntitySet Name="Publishers" EntityType="bookshopModel.Publishers" />
+          <EntitySet Name="recommend_log" EntityType="bookshopModel.recommend_log" />
+          <EntitySet Name="recommend_rating" EntityType="bookshopModel.recommend_rating" />
+          <EntitySet Name="RoleInfo" EntityType="bookshopModel.RoleInfo" />
+          <EntitySet Name="SearchDatails" EntityType="bookshopModel.SearchDatails" />
+          <EntitySet Name="Settings" EntityType="bookshopModel.Settings" />
+          <EntitySet Name="T_Email" EntityType="bookshopModel.T_Email" />
+          <EntitySet Name="Users" EntityType="bookshopModel.Users" />
+          <EntitySet Name="UserStates" EntityType="bookshopModel.UserStates" />
+          <AssociationSet Name="FK_RoleInfo_ActionInfo" Association="bookshopModel.FK_RoleInfo_ActionInfo">
+            <End Role="ActionInfo" EntitySet="ActionInfo" />
+            <End Role="RoleInfo" EntitySet="RoleInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookComment_Books" Association="bookshopModel.FK_BookComment_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="BookComment" EntitySet="BookComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookComment_Users" Association="bookshopModel.FK_BookComment_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BookComment" EntitySet="BookComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_Category" Association="bookshopModel.FK_Book_Category">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Books_Publishers" Association="bookshopModel.FK_Books_Publishers">
+            <End Role="Publishers" EntitySet="Publishers" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_Books" Association="bookshopModel.FK_Cart_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderBook_Book" Association="bookshopModel.FK_OrderBook_Book">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="OrderBook" EntitySet="OrderBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PdfReader_Books" Association="bookshopModel.FK_PdfReader_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="PdfReader" EntitySet="PdfReader" />
+          </AssociationSet>
+          <AssociationSet Name="FK_recommend_rating_Books" Association="bookshopModel.FK_recommend_rating_Books">
+            <End Role="Books" EntitySet="Books" />
+            <End Role="recommend_rating" EntitySet="recommend_rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_Users" Association="bookshopModel.FK_Cart_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailActive_Users" Association="bookshopModel.FK_EmailActive_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="EmailActive" EntitySet="EmailActive" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderBook_Order" Association="bookshopModel.FK_OrderBook_Order">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderBook" EntitySet="OrderBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User" Association="bookshopModel.FK_Order_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PayInfo_Users" Association="bookshopModel.FK_PayInfo_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PayInfo_del" EntitySet="PayInfo_del" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PdfReader_Users" Association="bookshopModel.FK_PdfReader_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PdfReader" EntitySet="PdfReader" />
+          </AssociationSet>
+          <AssociationSet Name="FK_recommend_rating_Users" Association="bookshopModel.FK_recommend_rating_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="recommend_rating" EntitySet="recommend_rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_RoleInfo" Association="bookshopModel.FK_Users_RoleInfo">
+            <End Role="RoleInfo" EntitySet="RoleInfo" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_UserStates" Association="bookshopModel.FK_Users_UserStates">
+            <End Role="UserStates" EntitySet="UserStates" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="ActionInfo">
+          <Key>
+            <PropertyRef Name="ActionId" />
+          </Key>
+          <Property Type="Int32" Name="ActionId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ActionName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ActionUrl" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Remark" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RoleInfo" Relationship="bookshopModel.FK_RoleInfo_ActionInfo" FromRole="ActionInfo" ToRole="RoleInfo" />
+        </EntityType>
+        <EntityType Name="ArticelWords">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="WordPattern" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsForbid" Nullable="false" />
+          <Property Type="Boolean" Name="IsMod" Nullable="false" />
+          <Property Type="String" Name="ReplaceWord" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BookComment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Msg" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="UserId" />
+          <Property Type="Int32" Name="BookId" Nullable="false" />
+          <Property Type="DateTime" Name="RegTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Books" Relationship="bookshopModel.FK_BookComment_Books" FromRole="BookComment" ToRole="Books" />
+          <NavigationProperty Name="Users" Relationship="bookshopModel.FK_BookComment_Users" FromRole="BookComment" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Books">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Author" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PublisherId" Nullable="false" />
+          <Property Type="DateTime" Name="PublishDate" Nullable="false" Precision="3" />
+          <Property Type="String" Name="ISBN" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="WordsCount" Nullable="false" />
+          <Property Type="Decimal" Name="UnitPrice" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="String" Name="ContentDescription" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AurhorDescription" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EditorComment" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TOC" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CategoryId" Nullable="false" />
+          <Property Type="Int32" Name="Store" />
+          <Property Type="Int32" Name="Discount" Nullable="false" />
+          <Property Type="String" Name="Pdfname" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Double" Name="rating" />
+          <Property Type="Int32" Name="hotcount" />
+          <NavigationProperty Name="BookComment" Relationship="bookshopModel.FK_BookComment_Books" FromRole="Books" ToRole="BookComment" />
+          <NavigationProperty Name="Categories" Relationship="bookshopModel.FK_Book_Category" FromRole="Books" ToRole="Categories" />
+          <NavigationProperty Name="Publishers" Relationship="bookshopModel.FK_Books_Publishers" FromRole="Books" ToRole="Publishers" />
+          <NavigationProperty Name="Cart" Relationship="bookshopModel.FK_Cart_Books" FromRole="Books" ToRole="Cart" />
+          <NavigationProperty Name="OrderBook" Relationship="bookshopModel.FK_OrderBook_Book" FromRole="Books" ToRole="OrderBook" />
+          <NavigationProperty Name="PdfReader" Relationship="bookshopModel.FK_PdfReader_Books" FromRole="Books" ToRole="PdfReader" />
+          <NavigationProperty Name="recommend_rating" Relationship="bookshopModel.FK_recommend_rating_Books" FromRole="Books" ToRole="recommend_rating" />
+        </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Int32" Name="BookId" Nullable="false" />
+          <Property Type="Int32" Name="Count" Nullable="false" />
+          <NavigationProperty Name="Books" Relationship="bookshopModel.FK_Cart_Books" FromRole="Cart" ToRole="Books" />
+          <NavigationProperty Name="Users" Relationship="bookshopModel.FK_Cart_Users" FromRole="Cart" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PId" />
+          <NavigationProperty Name="Books" Relationship="bookshopModel.FK_Book_Category" FromRole="Categories" ToRole="Books" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Content" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="Regtime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="EmailActive">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Boolean" Name="ActiveState" Nullable="false" />
+          <Property Type="String" Name="ActiveToken" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="ActiveTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Users" Relationship="bookshopModel.FK_EmailActive_Users" FromRole="EmailActive" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="HotCount">
+          <Key>
+            <PropertyRef Name="hotID" />
+          </Key>
+          <Property Type="Int32" Name="hotID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ipAddress" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="bookID" Nullable="false" />
+          <Property Type="DateTime" Name="addTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="keyWordsRank">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="KeyWords" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="SearchTimes" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderBook">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="OrderID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="BookID" Nullable="false" />
+          <Property Type="Int32" Name="Quantity" Nullable="false" />
+          <Property Type="Decimal" Name="UnitPrice" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Books" Relationship="bookshopModel.FK_OrderBook_Book" FromRole="OrderBook" ToRole="Books" />
+          <NavigationProperty Name="Orders" Relationship="bookshopModel.FK_OrderBook_Order" FromRole="OrderBook" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Type="String" Name="OrderId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="OrderDate" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Decimal" Name="TotalPrice" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="String" Name="PostAddress" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="state" Nullable="false" />
+          <NavigationProperty Name="OrderBook" Relationship="bookshopModel.FK_OrderBook_Order" FromRole="Orders" ToRole="OrderBook" />
+          <NavigationProperty Name="Users" Relationship="bookshopModel.FK_Order_User" FromRole="Orders" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="PayInfo_del">
+          <Key>
+            <PropertyRef Name="Guid" />
+          </Key>
+          <Property Type="String" Name="Guid" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Decimal" Name="Money" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="String" Name="Remark" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="Date" Precision="3" />
+          <Property Type="Int32" Name="State" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="bookshopModel.FK_PayInfo_Users" FromRole="PayInfo_del" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="PdfReader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Int32" Name="BookId" Nullable="false" />
+          <Property Type="DateTime" Name="ReadTime" Nullable="false" Precision="3" />
+          <Property Type="String" Name="Token" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Books" Relationship="bookshopModel.FK_PdfReader_Books" FromRole="PdfReader" ToRole="Books" />
+          <NavigationProperty Name="Users" Relationship="bookshopModel.FK_PdfReader_Users" FromRole="PdfReader" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Publishers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Books" Relationship="bookshopModel.FK_Books_Publishers" FromRole="Publishers" ToRole="Books" />
+        </EntityType>
+        <EntityType Name="recommend_log">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="userID" Nullable="false" />
+          <Property Type="Int32" Name="itemID" Nullable="false" />
+          <Property Type="String" Name="behaviorType" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="context" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="behaviorWeight" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="behaviorContent" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="addTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="recommend_rating">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="bookID" />
+          <Property Type="Int32" Name="userID" />
+          <Property Type="Double" Name="stars" />
+          <Property Type="DateTime" Name="addTime" Precision="3" />
+          <Property Type="DateTime" Name="updateTime" Precision="3" />
+          <NavigationProperty Name="Books" Relationship="bookshopModel.FK_recommend_rating_Books" FromRole="recommend_rating" ToRole="Books" />
+          <NavigationProperty Name="Users" Relationship="bookshopModel.FK_recommend_rating_Users" FromRole="recommend_rating" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="RoleInfo">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Type="Int32" Name="RoleId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="RoleDesc" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ActionId" />
+          <NavigationProperty Name="ActionInfo" Relationship="bookshopModel.FK_RoleInfo_ActionInfo" FromRole="RoleInfo" ToRole="ActionInfo" />
+          <NavigationProperty Name="Users" Relationship="bookshopModel.FK_Users_RoleInfo" FromRole="RoleInfo" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="SearchDatails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="KeyWords" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="SearchDateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Settings">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="key" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="value" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="bookid" />
+        </EntityType>
+        <EntityType Name="T_Email">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Emaillast" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Emailurl" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="LoginId" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoginPwd" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Address" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Phone" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Mail" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="UserRoleId" Nullable="false" />
+          <Property Type="Int32" Name="UserStateId" Nullable="false" />
+          <Property Type="Decimal" Name="Money" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Boolean" Name="UserActive" />
+          <Property Type="String" Name="Image" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="RegTime" Precision="3" />
+          <NavigationProperty Name="BookComment" Relationship="bookshopModel.FK_BookComment_Users" FromRole="Users" ToRole="BookComment" />
+          <NavigationProperty Name="Cart" Relationship="bookshopModel.FK_Cart_Users" FromRole="Users" ToRole="Cart" />
+          <NavigationProperty Name="EmailActive" Relationship="bookshopModel.FK_EmailActive_Users" FromRole="Users" ToRole="EmailActive" />
+          <NavigationProperty Name="Orders" Relationship="bookshopModel.FK_Order_User" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="PayInfo_del" Relationship="bookshopModel.FK_PayInfo_Users" FromRole="Users" ToRole="PayInfo_del" />
+          <NavigationProperty Name="PdfReader" Relationship="bookshopModel.FK_PdfReader_Users" FromRole="Users" ToRole="PdfReader" />
+          <NavigationProperty Name="recommend_rating" Relationship="bookshopModel.FK_recommend_rating_Users" FromRole="Users" ToRole="recommend_rating" />
+          <NavigationProperty Name="RoleInfo" Relationship="bookshopModel.FK_Users_RoleInfo" FromRole="Users" ToRole="RoleInfo" />
+          <NavigationProperty Name="UserStates" Relationship="bookshopModel.FK_Users_UserStates" FromRole="Users" ToRole="UserStates" />
+        </EntityType>
+        <EntityType Name="UserStates">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="bookshopModel.FK_Users_UserStates" FromRole="UserStates" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_RoleInfo_ActionInfo">
+          <End Type="bookshopModel.ActionInfo" Role="ActionInfo" Multiplicity="0..1" />
+          <End Type="bookshopModel.RoleInfo" Role="RoleInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActionInfo">
+              <PropertyRef Name="ActionId" />
+            </Principal>
+            <Dependent Role="RoleInfo">
+              <PropertyRef Name="ActionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookComment_Books">
+          <End Type="bookshopModel.Books" Role="Books" Multiplicity="1" />
+          <End Type="bookshopModel.BookComment" Role="BookComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookComment">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookComment_Users">
+          <End Type="bookshopModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="bookshopModel.BookComment" Role="BookComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookComment">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_Category">
+          <End Type="bookshopModel.Categories" Role="Categories" Multiplicity="1" />
+          <End Type="bookshopModel.Books" Role="Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_Publishers">
+          <End Type="bookshopModel.Publishers" Role="Publishers" Multiplicity="1" />
+          <End Type="bookshopModel.Books" Role="Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publishers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="PublisherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_Books">
+          <End Type="bookshopModel.Books" Role="Books" Multiplicity="1" />
+          <End Type="bookshopModel.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderBook_Book">
+          <End Type="bookshopModel.Books" Role="Books" Multiplicity="1" />
+          <End Type="bookshopModel.OrderBook" Role="OrderBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderBook">
+              <PropertyRef Name="BookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PdfReader_Books">
+          <End Type="bookshopModel.Books" Role="Books" Multiplicity="1" />
+          <End Type="bookshopModel.PdfReader" Role="PdfReader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PdfReader">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_recommend_rating_Books">
+          <End Type="bookshopModel.Books" Role="Books" Multiplicity="0..1" />
+          <End Type="bookshopModel.recommend_rating" Role="recommend_rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Books">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="recommend_rating">
+              <PropertyRef Name="bookID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_Users">
+          <End Type="bookshopModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="bookshopModel.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailActive_Users">
+          <End Type="bookshopModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="bookshopModel.EmailActive" Role="EmailActive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailActive">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderBook_Order">
+          <End Type="bookshopModel.Orders" Role="Orders" Multiplicity="1" />
+          <End Type="bookshopModel.OrderBook" Role="OrderBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="OrderBook">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User">
+          <End Type="bookshopModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="bookshopModel.Orders" Role="Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PayInfo_Users">
+          <End Type="bookshopModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="bookshopModel.PayInfo_del" Role="PayInfo_del" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PayInfo_del">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PdfReader_Users">
+          <End Type="bookshopModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="bookshopModel.PdfReader" Role="PdfReader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PdfReader">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_recommend_rating_Users">
+          <End Type="bookshopModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="bookshopModel.recommend_rating" Role="recommend_rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="recommend_rating">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_RoleInfo">
+          <End Type="bookshopModel.RoleInfo" Role="RoleInfo" Multiplicity="1" />
+          <End Type="bookshopModel.Users" Role="Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleInfo">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="UserRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_UserStates">
+          <End Type="bookshopModel.UserStates" Role="UserStates" Multiplicity="1" />
+          <End Type="bookshopModel.Users" Role="Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserStates">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="UserStateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bookshopModelStoreContainer" CdmEntityContainer="bookshopEntities">
+          <FunctionImportMapping FunctionImportName="Pro_GetPagedList" FunctionName="bookshopModel.Store.Pro_GetPagedList" />
+          <FunctionImportMapping FunctionImportName="Pro_OrderCreate" FunctionName="bookshopModel.Store.Pro_OrderCreate" />
+          <FunctionImportMapping FunctionImportName="Pro_Page" FunctionName="bookshopModel.Store.Pro_Page" />
+          <FunctionImportMapping FunctionImportName="CreateOrder" FunctionName="bookshopModel.Store.CreateOrder" />
+          <EntitySetMapping Name="ActionInfo">
+            <EntityTypeMapping TypeName="bookshopModel.ActionInfo">
+              <MappingFragment StoreEntitySet="ActionInfo">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="ActionUrl" ColumnName="ActionUrl" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+                <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArticelWords">
+            <EntityTypeMapping TypeName="bookshopModel.ArticelWords">
+              <MappingFragment StoreEntitySet="ArticelWords">
+                <ScalarProperty Name="ReplaceWord" ColumnName="ReplaceWord" />
+                <ScalarProperty Name="IsMod" ColumnName="IsMod" />
+                <ScalarProperty Name="IsForbid" ColumnName="IsForbid" />
+                <ScalarProperty Name="WordPattern" ColumnName="WordPattern" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookComment">
+            <EntityTypeMapping TypeName="bookshopModel.BookComment">
+              <MappingFragment StoreEntitySet="BookComment">
+                <ScalarProperty Name="RegTime" ColumnName="RegTime" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Msg" ColumnName="Msg" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="bookshopModel.Books">
+              <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="hotcount" ColumnName="hotcount" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="Pdfname" ColumnName="Pdfname" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Store" ColumnName="Store" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="TOC" ColumnName="TOC" />
+                <ScalarProperty Name="EditorComment" ColumnName="EditorComment" />
+                <ScalarProperty Name="AurhorDescription" ColumnName="AurhorDescription" />
+                <ScalarProperty Name="ContentDescription" ColumnName="ContentDescription" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="WordsCount" ColumnName="WordsCount" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="PublishDate" ColumnName="PublishDate" />
+                <ScalarProperty Name="PublisherId" ColumnName="PublisherId" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cart">
+            <EntityTypeMapping TypeName="bookshopModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="bookshopModel.Categories">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="PId" ColumnName="PId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contact">
+            <EntityTypeMapping TypeName="bookshopModel.Contact">
+              <MappingFragment StoreEntitySet="Contact">
+                <ScalarProperty Name="Regtime" ColumnName="Regtime" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailActive">
+            <EntityTypeMapping TypeName="bookshopModel.EmailActive">
+              <MappingFragment StoreEntitySet="EmailActive">
+                <ScalarProperty Name="ActiveTime" ColumnName="ActiveTime" />
+                <ScalarProperty Name="ActiveToken" ColumnName="ActiveToken" />
+                <ScalarProperty Name="ActiveState" ColumnName="ActiveState" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HotCount">
+            <EntityTypeMapping TypeName="bookshopModel.HotCount">
+              <MappingFragment StoreEntitySet="HotCount">
+                <ScalarProperty Name="addTime" ColumnName="addTime" />
+                <ScalarProperty Name="bookID" ColumnName="bookID" />
+                <ScalarProperty Name="ipAddress" ColumnName="ipAddress" />
+                <ScalarProperty Name="hotID" ColumnName="hotID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="keyWordsRank">
+            <EntityTypeMapping TypeName="bookshopModel.keyWordsRank">
+              <MappingFragment StoreEntitySet="keyWordsRank">
+                <ScalarProperty Name="SearchTimes" ColumnName="SearchTimes" />
+                <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderBook">
+            <EntityTypeMapping TypeName="bookshopModel.OrderBook">
+              <MappingFragment StoreEntitySet="OrderBook">
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="BookID" ColumnName="BookID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="bookshopModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="PostAddress" ColumnName="PostAddress" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PayInfo_del">
+            <EntityTypeMapping TypeName="bookshopModel.PayInfo_del">
+              <MappingFragment StoreEntitySet="PayInfo_del">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Money" ColumnName="Money" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PdfReader">
+            <EntityTypeMapping TypeName="bookshopModel.PdfReader">
+              <MappingFragment StoreEntitySet="PdfReader">
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="ReadTime" ColumnName="ReadTime" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Publishers">
+            <EntityTypeMapping TypeName="bookshopModel.Publishers">
+              <MappingFragment StoreEntitySet="Publishers">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="recommend_log">
+            <EntityTypeMapping TypeName="bookshopModel.recommend_log">
+              <MappingFragment StoreEntitySet="recommend_log">
+                <ScalarProperty Name="addTime" ColumnName="addTime" />
+                <ScalarProperty Name="behaviorContent" ColumnName="behaviorContent" />
+                <ScalarProperty Name="behaviorWeight" ColumnName="behaviorWeight" />
+                <ScalarProperty Name="context" ColumnName="context" />
+                <ScalarProperty Name="behaviorType" ColumnName="behaviorType" />
+                <ScalarProperty Name="itemID" ColumnName="itemID" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="recommend_rating">
+            <EntityTypeMapping TypeName="bookshopModel.recommend_rating">
+              <MappingFragment StoreEntitySet="recommend_rating">
+                <ScalarProperty Name="updateTime" ColumnName="updateTime" />
+                <ScalarProperty Name="addTime" ColumnName="addTime" />
+                <ScalarProperty Name="stars" ColumnName="stars" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="bookID" ColumnName="bookID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleInfo">
+            <EntityTypeMapping TypeName="bookshopModel.RoleInfo">
+              <MappingFragment StoreEntitySet="RoleInfo">
+                <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+                <ScalarProperty Name="RoleDesc" ColumnName="RoleDesc" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SearchDatails">
+            <EntityTypeMapping TypeName="bookshopModel.SearchDatails">
+              <MappingFragment StoreEntitySet="SearchDatails">
+                <ScalarProperty Name="SearchDateTime" ColumnName="SearchDateTime" />
+                <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="bookshopModel.Settings">
+              <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="bookid" ColumnName="bookid" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="key" ColumnName="key" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Email">
+            <EntityTypeMapping TypeName="bookshopModel.T_Email">
+              <MappingFragment StoreEntitySet="T_Email">
+                <ScalarProperty Name="Emailurl" ColumnName="Emailurl" />
+                <ScalarProperty Name="Emaillast" ColumnName="Emaillast" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="bookshopModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="RegTime" ColumnName="RegTime" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="UserActive" ColumnName="UserActive" />
+                <ScalarProperty Name="Money" ColumnName="Money" />
+                <ScalarProperty Name="UserStateId" ColumnName="UserStateId" />
+                <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LoginPwd" ColumnName="LoginPwd" />
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserStates">
+            <EntityTypeMapping TypeName="bookshopModel.UserStates">
+              <MappingFragment StoreEntitySet="UserStates">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

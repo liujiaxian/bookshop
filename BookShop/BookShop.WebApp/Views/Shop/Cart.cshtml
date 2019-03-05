@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "购物车";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@using BookShop.Model
+@using BookShop.Common
+@section head{
+    <link href="~/Content/PageBar.css" rel="stylesheet" />
+    <link href="~/Content/shopstyle.css" rel="stylesheet" />
+    <script type="text/javascript">
+        function cartshop() {
+            window.location = "/Shop/OrderInfo?action=cart";
+        }
+        //删除购物车中商品
+        function delcart(id) {
+            if (confirm("确定删除该商品吗？")) {
+                $.post("/Shop/DelCart", { id: id }, function (data) {
+                    if (data == "ok") {
+                        alert("删除成功");
+                        window.location.reload();
+                    }
+                });
+            }
+        }
+    </script>
+}
+<div class="content">
+    <div class="check-out">
+        @if (ViewData["cartlist"] == null)
+        {
+            <h4 class="title">购物车暂无商品</h4>
+            <p class="cart-out">
+                你的购物车没有商品.
+                <br>
+                点击
+                <a href="/Home/Index">这里</a>
+                继续购物
+            </p>
+        }
+        else
+        {
+            var cartlist = ViewData["cartlist"] as List<Cart>;
+            <div class="wish-list cartwidth">
+                <table>
+                    <tr><th>商品名称</th><th>数量</th><th>价格</th><th>小计</th><th>操作</th></tr>
+                    @foreach (var cart in cartlist)
+                    {
+                        decimal price = cart.Count * cart.Books.UnitPrice;
+                        <tr><td align="left" width="50%"><a href="/Home/ShopDetails?id=@cart.BookId"><img src="@string.Format("/Images/BookCovers/{0}.jpg",cart.Books.ISBN)" width="80" height="100" />&nbsp;@WebCommon.CurrentString(cart.Books.Title, 20)</a></td><td width="10%">@cart.Count</td><td width="10%">￥@cart.Books.UnitPrice.ToString("0.00")</td><td width="10%" >@price.ToString("0.00") </td><td width="20%"><a href="javascript:void(0)" onclick="delcart(@cart.Id)">删除</a>&nbsp;|&nbsp;<a href="/Shop/OrderInfo?id=@cart.BookId&count=@cart.Count">购买</a></td></tr>
+                    }
+                    <tr><td align="right" colspan="5"><span class="cart-price">￥<span>@ViewData["totalPrice"] </span></span></td></tr>
+                    <tr><td align="right" colspan="5"><input type="submit" onclick="cartshop()" class="btn btn-default" value="结算" /></td></tr>
+                </table>
+                <p class="page_nav">
+                    @Html.Raw(MyPageBar.PageSortCart((int)ViewBag.PageIndex, (int)ViewBag.PageCount))
+                </p>
+            </div>
+
+        }
+    </div>
+
+</div>

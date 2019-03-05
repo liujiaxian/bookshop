@@ -1,0 +1,181 @@
+﻿@{
+    ViewBag.Title = "用户个人中心";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@using BookShop.Model
+@section head{
+   <script src="~/Scripts/jquery.validate.min.js"></script>
+<style type="text/css">
+    .error {
+        font-size: 10px;
+        color: red;
+        padding-left: 10px;
+    }
+    .account-in {
+        padding:0px;
+    }
+</style>
+<script type="text/javascript">
+
+    $().ready(function () {
+        $("#per_frm").validate({
+            rules: {
+                Name: {
+                    required: true,
+                },
+                Phone: {
+                    required: true,
+                }
+            },
+            messages: {
+                Name: {
+                    required: "请输入姓名！",
+                },
+                Phone: {
+                    required: "请输入电话号码！",
+                }
+            }
+        });
+    });
+</script>
+
+  
+
+}
+
+<div class="content">
+    <form action="/Personal/UpdatePersonal" method="post" id="per_frm">
+        @if (ViewData["usermodel"] != null)
+        {
+            string p = "", c = "", a = "", area = "";
+            Users user = ViewData["usermodel"] as Users;
+
+            <div class="account-in register-top">
+                <h2>用户中心</h2>
+                <div class="col-md-7 account-top register">
+
+                    <div>
+                        <span>邮　　箱</span>
+                        <span>@user.Mail</span>
+                    </div>
+                    <div>
+                        <span>昵　　称</span>
+                        <input type="text" name="LoginId" value="@user.LoginId">
+                    </div>
+                    <div>
+                        <span>姓　　名</span>
+                        <input type="text" name="Name" value="@user.Name">
+                    </div>
+                    <div>
+                        <span>头　　像</span>
+                        <span id="spanButtonPlaceholder"></span>
+                    </div>
+                    <div>
+                        <span>地　　址</span>
+                        <select name="location_p" id="location_p"></select>
+                        <select name="location_c" id="location_c"></select>
+                        <select name="location_a" id="location_a"></select>
+                        <script src="~/Scripts/region_select.js"></script>
+                        <script type="text/javascript">
+                            new PCAS('location_p', 'location_c', 'location_a', '广东省', '', '');
+                        </script>
+                    </div>
+                    <div>
+                        <span>详细地址</span>
+                        <input type="text" name="address" value="@user.Address">
+                    </div>
+                    <div>
+                        <span>电　　话</span>
+                        <input type="text" name="Phone" value="@user.Phone">
+                    </div>
+                    <div>
+                        <span>账户余额</span>
+                        ￥ @user.Money
+                    </div>
+                    <div>
+                        <span>注册时间</span>
+                        @user.RegTime.ToString()
+                    </div>
+                    <input type="hidden" name="imgurl" value="" id="imgurl" />
+                    <input type="hidden" name="id" value="@user.Id" />
+                    <input type="submit" value="保存">
+                </div>
+                <div class="col-md-5 left-account ">
+                    <a href="#">
+                        @if (string.IsNullOrEmpty(user.Image))
+                        {
+                            <img class="img-responsive" src="/Images/co.png" alt="" width="150" height="210">
+                        }
+                        else
+                        {
+                            <img class="img-responsive" src="@user.Image" alt="" width="150" height="210">
+                        }
+                    </a>
+                    <span id="divFileProgressContainer" style="height: 75px;"></span>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        }
+    </form>
+</div>
+<script src="/swfupload/handlers.js"></script>
+<script src="/swfupload/swfupload.js"></script>
+<!-- 上传照片的ajax -->
+<script type="text/javascript">
+    var swfu;
+    window.onload = function () {
+        swfu = new SWFUpload({
+            // Backend Settings
+            // 上传请求处理地址
+            upload_url: "/Personal/UploadImg",
+            // POST提交同时伴随上传的键值对
+            post_params: {
+                //"ASPSESSID": "<%=Session.SessionID %>"
+            },
+            // File Upload Settings
+            // 最大文件限制
+            file_size_limit: "2 MB",
+            // 上传文件类型
+            file_types: "*.jpg",
+            file_types_description: "JPG Images",
+            file_upload_limit: 0,    // Zero means unlimited
+
+            // Event Handler Settings - these functions as defined in Handlers.js
+            //  The handlers are not part of SWFUpload but are part of my website and control how
+            //  my website reacts to the SWFUpload events.
+            swfupload_preload_handler: preLoad,
+            swfupload_load_failed_handler: loadFailed,
+            file_queue_error_handler: fileQueueError,
+            file_dialog_complete_handler: fileDialogComplete,
+            upload_progress_handler: uploadProgress,
+            upload_error_handler: uploadError,
+            upload_success_handler: function (file, serverData) {
+                $(".img-responsive").attr("src", serverData);
+                document.getElementById('imgurl').value = serverData;
+            },
+            upload_complete_handler: uploadComplete,
+
+            // Button settings
+            button_image_url: "/swfupload/images/XPButtonNoText_160x22.png",
+            button_placeholder_id: "spanButtonPlaceholder",
+            button_width: 160,
+            button_height: 22,
+            button_text: '<span class="button">选择图片 <span class="buttonSmall">(2 MB Max)</span></span>',
+            button_text_style: '.button { font-family: Helvetica, Arial, sans-serif; font-size: 14pt; } .buttonSmall { font-size: 10pt; }',
+            button_text_top_padding: 1,
+            button_text_left_padding: 5,
+
+            // Flash Settings
+            flash_url: "/swfupload/swfupload.swf", // Relative to this file
+            flash9_url: "/swfupload/swfupload_FP9.swf", // Relative to this file
+
+            custom_settings: {
+                upload_target: "divFileProgressContainer"
+            },
+
+            // Debug Settings
+            debug: false
+        });
+    }
+</script>

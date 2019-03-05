@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "登录";
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+}
+
+@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "frm" }))
+{ 
+    <div>
+        <span>邮　箱*</span>
+        <input type="text" name="Mail">
+    </div>
+    <div>
+        <span class="pass">密　码*</span>
+        <input type="password" name="LoginPwd" maxlength="18">
+    </div>
+    <div>
+        <span class="pass">验证码*</span>
+        <input type="text" style="width: 200px;" name="Vcode" maxlength="4">
+        <img src="/Account/Vcode" width="100" height="35" title="看不清，点击切换" onclick="this.src='/Account/Vcode?id='+Math.random()" />
+    </div>
+    <input type="submit" value="登录">
+    <input type="hidden" name="redirecturl" value="@HttpUtility.UrlEncode(Request.QueryString["redirecturl"])" />
+}
+
+@section accountfooter{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+
+        $().ready(function () {
+            $("#frm").validate({
+                rules: {
+                    Mail: {
+                        required: true,
+                        email: true,
+                    },
+                    LoginPwd: {
+                        required: true,
+                    },
+                    Vcode: {
+                        required: true,
+                        maxlength: 4,
+                        minlength: 4,
+                    },
+                },
+                messages: {
+                    Mail: {
+                        required: "请输入邮箱！",
+                        email: "请输入正确格式的电子邮件！"
+                    },
+                    LoginPwd: {
+                        required: "请输入密码！",
+                    },
+                    Vcode: {
+                        required: "请输入验证码！",
+                        maxlength: "验证码长度为4位！",
+                        minlength: "验证码长度为4位！",
+                    },
+                }
+            });
+        });
+    </script>
+}

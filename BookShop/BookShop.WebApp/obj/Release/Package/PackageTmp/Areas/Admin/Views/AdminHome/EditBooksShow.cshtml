@@ -1,0 +1,93 @@
+﻿@{
+    Layout = null;
+}
+@using BookShop.Model
+<style type="text/css">
+    table {
+        border: 1px solid #00ffff;
+        width: 70%;
+        border-collapse: collapse;
+        margin: 0px auto;
+    }
+
+        table tr td {
+            padding: 10px;
+            border: 1px solid #00ffff;
+        }
+
+    input[type=text] {
+        width: 100%;
+        height: 30px;
+    }
+
+    textarea {
+        width: 100%;
+        height: 100px;
+    }
+</style>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BookDetails</title>
+</head>
+<body>
+    @{Books book = ViewData["booksmodel"] as Books; List<Publishers> publish = ViewData["publish"] as List<Publishers>; List<Categories> category = ViewData["catlist"] as List<Categories>;}
+    <form action="/Admin/AdminHome/EditBooksInfo" method="post" enctype="multipart/form-data">
+        <table>
+            <caption><h3>图书详情</h3></caption>
+            <tr><td align="right" width="15%">图书编号</td><td><input type="hidden" name="Id" value="@book.Id"/> @book.Id</td></tr>
+            <tr><td align="right">图书标题</td><td><input type="text" name="Title" value="@book.Title" /></td></tr>
+            <tr><td align="right">图书作者</td><td><input type="text" name="Author" value="@book.Author" /></td></tr>
+            <tr>
+                <td align="right">图书出版社</td>
+                <td>
+                    <select name="PublisherId">
+                        @foreach (var item in publish)
+                        {
+                            if (item.Id == book.CategoryId)
+                            {
+                                <option value="@item.Id" selected="selected">@item.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr><td align="right">图书出版时间</td><td><input type="text" name="PublishDate" value="@book.PublishDate" /></td></tr>
+            <tr><td align="right">图书ISBN</td><td><input type="hidden" name="imgisbn" value="@ViewData["imgisbn"].ToString()" /><input type="text" name="ISBN" value="@book.ISBN" /></td></tr>
+            <tr><td align="right">图书字数</td><td><input type="text" name="WordsCount" value="@book.WordsCount" /></td></tr>
+            <tr><td align="right">图书价格</td><td><input type="text" name="UnitPrice" value="@book.UnitPrice" /></td></tr>
+            <tr><td align="right">图书描叙</td><td><textarea name="ContentDescription">@book.ContentDescription</textarea></td></tr>
+            <tr><td align="right">图书作者描叙</td><td><textarea name="AurhorDescription">@book.AurhorDescription</textarea></td></tr>
+            <tr><td align="right">图书编者描叙</td><td><textarea name="EditorComment">@book.EditorComment</textarea></td></tr>
+            <tr><td align="right">图书开头阅读</td><td><textarea name="TOC">@book.TOC</textarea></td></tr>
+            <tr>
+                <td align="right">图书分类</td>
+                <td>
+                    <select name="CategoryId">
+                        @foreach (var item1 in category)
+                        {
+                            if (item1.Id == book.CategoryId)
+                            {
+                                <option value="@item1.Id" selected="selected">@item1.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@item1.Id">@item1.Name</option>
+                            }
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr><td align="right">图书折扣</td><td><input type="text" name="Discount" value="@book.Discount" /></td></tr>
+            <tr><td align="right">图书图片</td><td><input type="file" name="editimg" /></td></tr>
+            <tr><td></td><td><input type="submit" value="保存" onclick="" />&nbsp;&nbsp;<input type="button" value="返回" onclick="window.history.go(-1)" /></td></tr>
+        </table>
+    </form>
+</body>
+</html>

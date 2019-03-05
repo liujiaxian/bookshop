@@ -1,0 +1,28 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图书商城在线试读</title>
+    <script src="/Scripts/pdfobject.js"></script>
+    <script>
+        window.onload = function () {
+            var pdf = document.getElementById("pdfname").value;
+            if (pdf == "") {
+                alert("亲，系统暂无该图书的pdf哦！");
+                window.history.go(-1);
+            }
+            var myPDF = new PDFObject({ url: pdf }).embed();
+        };
+    </script>
+</head>
+<body>
+    <input type="hidden" name="pdfname" id="pdfname" value="@ViewData["pdf"].ToString()" />
+
+    <span style="display:none;">
+    </span><p>如果没有正常显示，请<a href="mailto:请将该电子邮件报告给liujiaxioo@163.com以便进行bug修复">请将该电子邮件报告给liujiaxioo@163.com以便进行bug修复</a></p>
+</body>
+</html>

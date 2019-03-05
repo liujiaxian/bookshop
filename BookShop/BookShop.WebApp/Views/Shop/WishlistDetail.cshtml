@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "订单详细页面";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@using BookShop.Model
+@using BookShop.Common
+@section head{
+    <link href="~/Content/PageBar.css" rel="stylesheet" />
+    <link href="~/Content/shopstyle.css" rel="stylesheet" />
+    <script type="text/javascript">
+        function delorder(id) {
+            alert(id);
+            if (confirm("确定删除该条记录吗？")) {
+                $.post("/Shop/DelOrder", { id: id }, function (data) {
+
+                    if (data == "ok") {
+                        alert("删除成功！");
+                        window.location.reload();
+                    } else {
+                        alert("删除失败！");
+                    }
+                });
+            }
+        }
+    </script>
+}
+<div class="content">
+    <div class="check-out">
+        @if (ViewData["orderlist"] == null)
+        {
+            <h4 class="title">暂无订单详细记录</h4>
+            <p class="cart-out">
+                你还没有购买过商品.
+                <br>
+                点击
+                <a href="/Home/Index">这里</a>
+                购买
+            </p>
+        }
+        else
+        {
+            var cartlist = ViewData["orderlist"] as List<OrderBook>;
+
+            <div class="wish-list cartwidth">
+                <table>
+                    <tr>
+                        <th></th>
+                        <th>图书</th>
+                        <th>金额</th>
+                        <th>数量</th>
+                        <th>状态</th>
+                        <th>下单时间</th>
+                        <th>操作</th>
+                    </tr>
+                    @foreach (var cart in cartlist)
+                    {
+                        string statename = "未完成";
+                        if (cart.Orders.state == 1)
+                        {
+                            statename = "已完成";
+                        }
+                        <tr>
+                            <td width="5%"><a href="/Home/ShopDetails?id=@cart.Books.Id" title="点击查看图书详细"><img src="@string.Format("/Images/BookCovers/{0}.jpg", cart.Books.ISBN)" style="width:50px;height:80px;" /></a></td>
+                            <td><a href="/Home/ShopDetails?id=@cart.Books.Id" title="点击查看图书详细">@cart.Books.Title</a></td>
+                            <td width="10%">@cart.UnitPrice.ToString("0.00")</td>
+                             <td width="10%">@cart.Quantity</td>
+                            <td width="10%">@statename</td>
+                            <td align="center" width="20%">@Convert.ToDateTime(cart.Orders.OrderDate).ToString("yyyy-MM-dd HH:mm:ss")</td>
+                            <td width="20%"><a href="/Shop/DelOrderDetail?id=@cart.Id">删除</a></td>
+                        </tr>
+
+                    }
+                </table>
+                <p class="page_nav">
+                    @Html.Raw(MyPageBar.PageSortOrderDetail((int)ViewBag.PageIndex, (int)ViewBag.PageCount,ViewBag.OrderID))
+                </p>
+            </div>
+
+        }
+    </div>
+
+</div>

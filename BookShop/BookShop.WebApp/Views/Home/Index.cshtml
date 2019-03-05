@@ -1,0 +1,214 @@
+﻿@{
+    ViewBag.Title = "首页";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+@using BookShop.Model
+@using BookShop.IBLL
+@using BookShop.BLL
+@using BookShop.Common
+
+@section head{
+    <style type="text/css">
+        .content-bottom .bottom-grid-top:hover {
+            box-shadow: 0 0 10px #f02b63;
+        }
+
+        h3 a {
+            color: #7db122;
+        }
+        h3 a:hover {
+            color: #f02b63;
+            text-decoration:none;
+        }
+    </style>
+}
+<div class="col-md-9">
+    <div class="shoe">
+        <a href='/Home/ShopDetails?id=@Convert.ToInt32(ViewData["ggbookid"])'>
+            <img class="img-responsive" src="@ViewData["img"].ToString()" alt="" style="width:100%;"></a>
+        <div class="shop">
+            @{string[] gg = ViewData["gg"] as string[];}
+            <h4>
+                @gg[0].ToString()
+                <span>@gg[1].ToString()</span>
+            </h4>
+            <p>@gg[2].ToString()</p>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+    <div class="content-bottom">
+        <h3><a href="/Home/ShopList?id=-1" title="点击查看更多">推荐图书</a></h3>
+        <div>
+            @{List<Books> bookslist = ViewData["books"] as List<Books>;}
+            @if (bookslist != null)
+            {
+                foreach (var item in bookslist)
+                {        
+                <div class="col-md-4 shirt" style="margin: 20px 0px;">
+                    <div class="bottom-grid-top">
+                        <a href="/Home/ShopDetails?id=@item.Id">
+                            <img class="img-responsive" src="@string.Format("/Images/BookCovers/{0}.jpg", item.ISBN)" style="width:100%;height:264px;" alt=""></a>
+                            <div class="five">
+                                <h6>@(item.Discount * 1.0 / 10)折</h6>
+                            </div>
+                            <div class="pre" style="height: 74px">
+                                <a href="/Home/ShopDetails?id=@item.Id"><p>@TextHide.GetSubString(item.Title, 50)</p></a>
+                                <br />
+                                <br />
+                                <span class="pull-left" style="cursor:pointer;" onclick="AddCart(@item.Id)"><i class="glyphicon glyphicon-shopping-cart"></i>加入购物车</span><span class="pull-right">￥@item.UnitPrice.ToString("0.00")</span>
+                                <div class="clearfix"></div>
+                            </div>
+                        
+                    </div>
+                </div> 
+                }
+            }
+            <div class="clearfix"></div>
+        </div>
+
+        <h3><a href="/Home/ShopList?id=-2" title="点击查看更多">热门图书</a></h3>
+        <div>
+             @{List<Books> hotbooks = ViewData["hotbooks"] as List<Books>;}
+            @if (hotbooks != null)
+            {
+                foreach (var item in hotbooks)
+                {        
+                <div class="col-md-4 shirt" style="margin: 20px 0px;">
+                    <div class="bottom-grid-top">
+                        <a href="/Home/ShopDetails?id=@item.Id">
+                            <img class="img-responsive" src="@string.Format("/Images/BookCovers/{0}.jpg", item.ISBN)" style="width:100%;height:264px;" alt=""></a>
+                            <div class="five">
+                                <h6>@(item.Discount * 1.0 / 10)折</h6>
+                            </div>
+                            <div class="pre" style="height: 74px">
+                                <a href="/Home/ShopDetails?id=@item.Id"><p>@TextHide.GetSubString(item.Title, 50)</p></a>
+                                <br />
+                                <br />
+                                <span class="pull-left" style="cursor:pointer;" onclick="AddCart(@item.Id)"><i class="glyphicon glyphicon-shopping-cart"></i>加入购物车</span><span class="pull-right">￥@item.UnitPrice.ToString("0.00")</span>
+                                <div class="clearfix"></div>
+                            </div>
+                        
+                    </div>
+                </div> 
+                }
+            }
+            <div class="clearfix"></div>
+        </div>
+
+        <h3><a href="/Home/ShopList?id=-3" title="点击查看更多">低价图书</a></h3>
+        <div>
+            @{List<Books> lowbooks = ViewData["lowbooks"] as List<Books>;}
+            @if (lowbooks != null)
+            {
+                foreach (var item in lowbooks)
+                {        
+                <div class="col-md-4 shirt" style="margin: 20px 0px;">
+                    <div class="bottom-grid-top">
+                        <a href="/Home/ShopDetails?id=@item.Id">
+                            <img class="img-responsive" src="@string.Format("/Images/BookCovers/{0}.jpg", item.ISBN)" style="width:100%;height:264px;" alt=""> </a>
+                            <div class="five">
+                                <h6>@(item.Discount * 1.0 / 10)折</h6>
+                            </div>
+                            <div class="pre" style="height: 74px">
+                                <a href="/Home/ShopDetails?id=@item.Id"><p>@TextHide.GetSubString(item.Title, 50)</p> </a>
+                                <br />
+                                <br />
+                               <span class="pull-left" style="cursor:pointer;" onclick="AddCart(@item.Id)"><i class="glyphicon glyphicon-shopping-cart"></i>加入购物车</span><span class="pull-right">￥@item.UnitPrice.ToString("0.00")</span>
+                                <div class="clearfix"></div>
+                            </div>
+                    </div>
+                </div> 
+                }
+            }
+            <div class="clearfix"></div>
+        </div>
+
+        <h3><a href="/Home/ShopGifts?id=83" title="点击查看更多">光盘图书</a></h3>
+        <div>
+            @{List<Books> drivebooks = ViewData["drivebooks"] as List<Books>;}
+            @if (drivebooks != null)
+            {
+                foreach (var item in drivebooks)
+                {        
+                <div class="col-md-4 shirt" style="margin: 20px 0px;">
+                    <div class="bottom-grid-top">
+                        <a href="/Home/ShopDetails?id=@item.Id">
+                            <img class="img-responsive" src="@string.Format("/Images/BookCovers/{0}.jpg", item.ISBN)" style="width:100%;height:264px;" alt=""> </a>
+                            <div class="five">
+                                <h6>@(item.Discount * 1.0 / 10)折</h6>
+                            </div>
+                            <div class="pre" style="height: 74px">
+                                <a href="/Home/ShopDetails?id=@item.Id"><p>@TextHide.GetSubString(item.Title, 50)</p> </a>
+                                <br />
+                                <br />
+                                <span class="pull-left" style="cursor:pointer;" onclick="AddCart(@item.Id)"><i class="glyphicon glyphicon-shopping-cart"></i>加入购物车</span><span class="pull-right">￥@item.UnitPrice.ToString("0.00")</span>
+                                <div class="clearfix"></div>
+                            </div>
+                       
+                    </div>
+                </div> 
+                }
+            }
+            <div class="clearfix"></div>
+        </div>
+
+        <h3><a href="/Home/ShopGifts?id=84" title="点击查看更多">视频教程图书</a></h3>
+        <div>
+            @{List<Books> videobooks = ViewData["videobooks"] as List<Books>;}
+            @if (videobooks != null)
+            {
+                foreach (var item in videobooks)
+                {        
+                <div class="col-md-4 shirt" style="margin: 20px 0px;">
+                    <div class="bottom-grid-top">
+                        <a href="/Home/ShopDetails?id=@item.Id">
+                            <img class="img-responsive" src="@string.Format("/Images/BookCovers/{0}.jpg", item.ISBN)" style="width:100%;height:264px;" alt=""></a>
+                            <div class="five">
+                                <h6>@(item.Discount * 1.0 / 10)折</h6>
+                            </div>
+                            <div class="pre" style="height: 74px">
+                                <a href="/Home/ShopDetails?id=@item.Id"><p>@TextHide.GetSubString(item.Title, 50)</p></a>
+                                <br />
+                                <br />
+                                <span class="pull-left" style="cursor:pointer;" onclick="AddCart(@item.Id)"><i class="glyphicon glyphicon-shopping-cart"></i>加入购物车</span><span class="pull-right">￥@item.UnitPrice.ToString("0.00")</span>
+                                <div class="clearfix"></div>
+                            </div>
+                        
+                    </div>
+                </div> 
+                }
+            }
+            <div class="clearfix"></div>
+        </div>
+
+        <h3><a href="/Home/ShopGifts?id=85" title="点击查看更多">在线阅读图书</a></h3>
+        <div>
+            @{List<Books> readerbooks = ViewData["readerbooks"] as List<Books>;}
+            @if (readerbooks != null)
+            {
+                foreach (var item in readerbooks)
+                {        
+                <div class="col-md-4 shirt" style="margin: 20px 0px;">
+                    <div class="bottom-grid-top">
+                        <a href="/Home/ShopDetails?id=@item.Id">
+                            <img class="img-responsive" src="@string.Format("/Images/BookCovers/{0}.jpg", item.ISBN)" style="width:100%;height:264px;" alt=""></a>
+                            <div class="five">
+                                <h6>@(item.Discount * 1.0 / 10)折</h6>
+                            </div>
+                            <div class="pre" style="height: 74px">
+                                <a href="/Home/ShopDetails?id=@item.Id"><p>@TextHide.GetSubString(item.Title, 50)</p></a>
+                                <br />
+                                <br />
+                                <span class="pull-left" style="cursor:pointer;" onclick="AddCart(@item.Id)"><i class="glyphicon glyphicon-shopping-cart"></i>加入购物车</span><span class="pull-right">￥@item.UnitPrice.ToString("0.00")</span>
+                                <div class="clearfix"></div>
+                            </div>
+                        
+                    </div>
+                </div> 
+                }
+            }
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</div>

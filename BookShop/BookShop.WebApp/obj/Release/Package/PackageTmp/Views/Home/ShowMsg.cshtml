@@ -1,0 +1,70 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>图书商城跳转页面</title>
+    <style type="text/css">
+        .forgot-usr-pwd {
+            font-size: 20px !important;
+            padding-top: 20px !important;     
+                    
+        }
+        .txt {
+            padding-left: 50px !important;
+            color: green !important;
+        }
+        .txt1 {
+            padding-left: 50px !important;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            setTimeout(changeTime, 1000);
+        }
+        function changeTime() {
+            var time = document.getElementById("time").innerHTML;
+            time = parseInt(time);
+            time--;
+            if (time < 1) {
+                var url = document.getElementById("url").href;
+                window.location.href = url;
+            }
+            else {
+                document.getElementById("time").innerHTML = time;
+                setTimeout(changeTime, 1000);
+            }
+        }
+    </script>
+    <!--- CSS --->
+    <link rel="stylesheet" href="/Content/style.css" type="text/css" />
+
+
+    <!--- Javascript libraries (jQuery and Selectivizr) used for the custom checkbox --->
+    <!--[if (gte IE 6)&(lte IE 8)]>
+        <script type="text/javascript" src="/Script/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="/Script/selectivizr.js"></script>
+        <noscript><link rel="stylesheet" href="/Content/fallback.css" /></noscript>
+    <![endif]-->
+
+</head>
+
+<body>
+    <div id="container">
+        <form>
+            <div class="login">正在跳转，请稍后……</div>  
+            <div class="forgot-usr-pwd txt">@ViewBag.msg</div>     
+            <div class="forgot-usr-pwd"></div>       
+            <div class="forgot-usr-pwd"><span id="time">3</span>秒后 <a href="@ViewBag.url" id="url">立即跳转</a></div>
+            <div class="forgot-usr-pwd txt1">@ViewBag.txt</div>     
+        </form>
+    </div>
+    <div id="footer">
+        图书商城 <a href="/Home/Index" target="_blank" title="图书商城">图书商城</a>
+    </div>
+</body>
+</html>

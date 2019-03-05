@@ -1,0 +1,174 @@
+﻿@{
+    Layout = null;
+}
+@using BookShop.Model
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/themes/icon.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui-lang-zh_CN.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            loadData();
+            $("#addDiv").css("display", "none");
+            $("#editDiv").css("display", "none");
+            //构造搜索参数
+            $("#btnSearch").click(function () {
+                var pars = {
+                    SearchTitle: $("#txtTitle").val(),
+                    SearchAuthor: $("#txtAuthor").val(),
+                    SearchPublisher: $("#txtPublisher").val(),
+                    SearchCategories: $("#txtCategories").val()
+                };
+                loadData(pars);
+            });
+        });
+
+        function loadData(pars) {
+            $('#tt').datagrid({
+                url: '/AdminHome/GetBooksInfo',
+                title: '图书数据表格',
+                width: 1100,
+                height: 400,
+                fitColumns: true, //列自适应
+                idField: 'Id',//主键列的列明
+                loadMsg: '正在加载图书的信息...',
+                pagination: true,//是否有分页
+                singleSelect: false,//是否单行选择
+                pageSize: 10,//页大小，一页多少条数据
+                pageNumber: 1,//当前页，默认的
+                pageList: [10, 20, 30],
+                queryParams: pars,//往后台传递参数
+                columns: [[//c.UserName, c.UserPass, c.Email, c.RegTime
+                    { field: 'ck', checkbox: true, align: 'left', width: 50 },
+					{ field: 'Id', title: '编号', width: 80 },
+					{ field: 'Title', title: '书名', width: 120 },
+                     { field: 'Author', title: '作者', width: 120 },
+                     { field: 'Publisher', title: '出版社', width: 120 },
+                   
+                     { field: 'ISBN', title: 'ISBN', width: 120 },
+                      { field: 'UnitPrice', title: '价格', width: 120 },
+                      { field: 'Category', title: '分类', width: 120 },
+                     { field: 'Discount', title: '折扣', width: 120 },
+                      {
+                          field: 'Content', title: '详细', width: 80, align: 'right',
+                          formatter: function (value, row, index) {// value:值。 row:JSON对象.
+                              return "<a href='javascript:void(0)'  onclick='detailLink(" + row.Id + ")'>详细</a>";
+                          }
+                      }
+                ]],
+                toolbar: [{
+                    id: 'btnDelete',
+                    text: '删除',
+                    iconCls: 'icon-remove',
+                    handler: function () {
+                        deleteinfo();
+                    }
+                }, {
+                    id: 'btnAdd',
+                    text: '添加',
+                    iconCls: 'icon-add',
+                    handler: function () {
+                        addinfo();
+                    }
+                }
+                , {
+                    id: 'btnEdit',
+                    text: '修改',
+                    iconCls: 'icon-edit',
+                    handler: function () {
+                        editinfo();
+                    }
+                }
+                ],
+            });
+        }
+        //修改用户信息
+        function editinfo() {
+            var rows = $('#tt').datagrid('getSelections');
+            if (rows.length != 1) {
+                $.messager.alert("提醒", "请选择一条要修改的记录!", "error");
+                return;
+            }
+            else {
+                window.location = "/Admin/AdminHome/EditBooksShow?id=" + rows[0].Id;
+            }
+
+        }
+        //添加用户数据
+        function addinfo() {
+            window.location = "/Admin/AdminHome/AddBooksShow";
+        }
+        //删除用户数据
+        function deleteinfo() {
+            var rows = $('#tt').datagrid('getSelections');
+            //判断有没有被选中
+            if (!rows || rows.length == 0) {
+                //alert("请选择要修改的商品！");
+                $.messager.alert("提醒", "请选择要删除的记录!", "error");
+                return;
+            }
+            if ($.messager.confirm("提示", "确定要删除吗？", function (r) {
+                if (r) {
+                 var str = "";
+                for (var i = 0; i < rows.length; i++) {
+                str = str + rows[i].Id + ",";
+            }
+                str = str.substr(0, str.length - 1);
+                $.post("DeleteBooksInfo", { "strId": str }, function (data) {
+                if (data == "ok") {
+                $.messager.alert("提醒", "删除成功!", "info");
+                //loadData();
+                $('#tt').datagrid('clearSelections');
+                $('#tt').datagrid('reload');
+            }
+            else {
+                $.messager.alert("提醒", "删除失败!", "info");
+            }
+            });
+            }
+            }));
+        }
+        //详细查看
+        function detailLink(id) {
+            window.location = "/Admin/AdminHome/BookDetails?id=" + id;
+        }
+    </script>
+
+</head>
+<body>
+    <div>
+        <p>
+            标题：<input type="text" id="txtTitle" />&nbsp;&nbsp;作者：<input type="text" id="txtAuthor" />&nbsp;&nbsp;出版社：<select id="txtPublisher">
+                <option>全部</option>
+                @if (ViewData["publisherlist"] != null)
+                {
+                    foreach (Publishers pub in ViewData["publisherlist"] as List<Publishers>)
+                    {
+                        <option>@pub.Name</option>
+                    }
+                }
+            </select>
+
+            &nbsp;&nbsp;分类：<select id="txtCategories">
+                <option>全部</option>
+                @if (ViewData["categorylist"] != null)
+                {
+                    foreach (Categories cat in ViewData["categorylist"] as List<Categories>)
+                    {
+                        <option>@cat.Name</option>
+                    }
+                }
+            </select>&nbsp;&nbsp;<input type="button" id="btnSearch" value="搜索" />
+        </p>
+        <table id="tt" style="width: 700px;" title="标题，可以使用代码进行初始化，也可以使用这种属性的方式" iconcls="icon-edit"></table>
+    </div>
+</body>
+</html>

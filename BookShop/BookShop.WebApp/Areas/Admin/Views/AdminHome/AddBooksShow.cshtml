@@ -1,0 +1,80 @@
+﻿@{
+    Layout = null;
+}
+@using BookShop.Model
+<style type="text/css">
+    table {
+        border: 1px solid #00ffff;
+        width: 70%;
+        border-collapse: collapse;
+        margin: 0px auto;
+    }
+
+        table tr td {
+            padding: 10px;
+            border: 1px solid #00ffff;
+        }
+
+    input[type=text] {
+        width: 100%;
+        height: 30px;
+    }
+
+    textarea {
+        width: 100%;
+        height: 100px;
+    }
+</style>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BookDetails</title>
+</head>
+<body>
+    @{ List<Publishers> publish = ViewData["publish"] as List<Publishers>; List<Categories> category = ViewData["catlist"] as List<Categories>;}
+    <form action="/Admin/AdminHome/AddBooksInfo" method="post" enctype="multipart/form-data">
+        <table>
+            <caption><h3>添加图书</h3></caption>
+            <tr><td align="right">图书标题</td><td><input type="text" name="Title" value="" /></td></tr>
+            <tr><td align="right">图书作者</td><td><input type="text" name="Author" value="" /></td></tr>
+            <tr>
+                <td align="right">图书出版社</td>
+                <td>
+                    <select name="PublisherId">
+                        <option value="0">请选择出版社</option>
+                        @foreach (var item in publish)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr><td align="right">图书出版时间</td><td><input type="text" name="PublishDate" value="" /></td></tr>
+            <tr><td align="right">图书ISBN</td><td><input type="text" name="ISBN" id="ISBN" value="" /></td></tr>
+            <tr><td align="right">图书字数</td><td><input type="text" name="WordsCount" value="" /></td></tr>
+            <tr><td align="right">图书价格</td><td><input type="text" name="UnitPrice" value="" /></td></tr>
+            <tr><td align="right">图书描叙</td><td><textarea name="ContentDescription"></textarea></td></tr>
+            <tr><td align="right">图书作者描叙</td><td><textarea name="AurhorDescription"></textarea></td></tr>
+            <tr><td align="right">图书编者描叙</td><td><textarea name="EditorComment"></textarea></td></tr>
+            <tr><td align="right">图书开头阅读</td><td><textarea name="TOC"></textarea></td></tr>
+            <tr>
+                <td align="right">图书分类</td>
+                <td>
+                    <select name="CategoryId">
+                        <option value="0">请选择图书分类</option>
+                        @foreach (var item1 in category)
+                        {
+                            <option value="@item1.Id">@item1.Name</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr><td align="right">图书折扣</td><td><input type="text" name="Discount" value="" /></td></tr>
+            <tr><td align="right">图书图片</td><td><input type="file" name="img" /></td></tr>
+            <tr><td></td><td><input type="submit" value="添加" onclick="" />&nbsp;&nbsp;<input type="button" value="返回" onclick="window.history.go(-1)" /></td></tr>
+        </table>
+    </form>
+</body>
+</html>

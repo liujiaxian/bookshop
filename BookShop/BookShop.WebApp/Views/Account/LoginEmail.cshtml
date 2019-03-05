@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "忘记密码登录邮箱";
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+}
+
+<div>
+    <h3><span>第二步</span></h3>
+</div>
+<div>
+    @if (ViewData["emailurl"] != null)
+    {
+        <span class="pass" style="color: red;">激活链接已发送至
+                        <a href='@ViewData["emailurl"].ToString()' title="点击登录邮箱" target="_blank">@ViewData["emailname"].ToString()</a>,请在30分钟内激活该链接。
+        </span>
+        <br />
+        <br />
+        <input type="button" onclick="btn_logemail()" value="登录邮箱">
+    }
+    else
+    {
+        <span class="pass" style="color: red;">激活链接已发送至
+                        <a href="javascript:void(0)" onclick="alert('亲，抱歉系统暂无该邮箱的官方登录地址，请自行登录，谢谢。')" title="亲，抱歉系统暂无该邮箱的官方登录地址，请自行登录，谢谢。" target="_blank">@ViewData["emailname"].ToString()</a> ,请在30分钟内激活该链接。
+        </span>
+        <br />
+        <br />
+        <input type="submit" onclick="alert('亲，抱歉系统暂无该邮箱的官方登录地址，请自行登录，谢谢。')" value="登录邮箱">
+    }
+</div>
+
+@section accountfooter{
+    <script type="text/javascript">
+        function btn_logemail() {
+            var url = '@ViewData["emailurl"]';
+            window.open(url);
+        }
+    </script>
+}

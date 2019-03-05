@@ -1,0 +1,270 @@
+﻿@{
+    Layout = null;
+}
+@using BookShop.Model
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/themes/icon.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui-lang-zh_CN.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            loadData();
+            $("#addDiv").css("display", "none");
+            $("#editDiv").css("display", "none");
+            //构造搜索参数
+            $("#btnSearch").click(function () {
+                var pars = {
+                    SearchOrderId: $("#txtSearchOrderId").val()
+                };
+                loadData(pars);
+            });
+        });
+        function loadData(pars) {
+            $('#tt').datagrid({
+                url: '/AdminHome/GetOrderBookInfo',
+                title: '订单数据表格',
+                width: 700,
+                height: 400,
+                fitColumns: true, //列自适应
+                idField: 'Id',//主键列的列明
+                loadMsg: '正在加载订单的信息...',
+                pagination: true,//是否有分页
+                singleSelect: false,//是否单行选择
+                pageSize: 10,//页大小，一页多少条数据
+                pageNumber: 1,//当前页，默认的
+                pageList: [10, 20, 30],
+                queryParams: pars,//往后台传递参数
+                columns: [[//c.UserName, c.UserPass, c.Email, c.RegTime
+                    { field: 'ck', checkbox: true, align: 'left', width: 50 },
+					{ field: 'Id', title: '编号', width: 80 },
+					{ field: 'OrderID', title: '订单编号', width: 120 },
+                    { field: 'BookName', title: '图书名称', width: 120 },
+                    { field: 'Price', title: '价格', width: 120 },
+                    { field: 'Quantity', title: '数量', width: 120 },
+                ]],
+                toolbar: [{
+                    id: 'btnDelete',
+                    text: '删除',
+                    iconCls: 'icon-remove',
+                    handler: function () {
+                        deleteinfo();
+                    }
+                }, {
+                    id: 'btnAdd',
+                    text: '添加',
+                    iconCls: 'icon-add',
+                    handler: function () {
+                        addinfo();
+                    }
+                }
+                , {
+                    id: 'btnEdit',
+                    text: '修改',
+                    iconCls: 'icon-edit',
+                    handler: function () {
+                        editinfo();
+                    }
+                }
+                ],
+            });
+        }
+        //修改用户信息
+        function editinfo() {
+            var rows = $('#tt').datagrid('getSelections');
+            if (rows.length != 1) {
+                $.messager.alert("提醒", "请选择一条修改的记录!", "error");
+                return;
+            }
+            else {
+                //给iframe的src属性赋值
+                $("#editDiv").css("display", "block");
+                $("#txtId").val(rows[0].Id);
+                $("#txtOrderID").val(rows[0].OrderID);
+                $("#txtBookId").val(rows[0].BookId);
+                $("#txtUnitPrice").val(rows[0].Price);
+                $("#txtQuantity").val(rows[0].Quantity);
+                $('#editDiv').dialog({
+                    title: "修改订单数据",
+                    width: 900,
+                    height: 300,
+                    modal: true,
+                    buttons: [{
+                        text: '修改',
+                        iconCls: 'icon-ok',
+                        handler: function () {//需要调用子窗体中的方法
+                            $("#editForm").submit();
+                        }
+                    }, {
+                        text: '取消',
+                        handler: function () {
+                            $('#editDiv').dialog('close');
+                        }
+                    }]
+                });
+            }
+
+        }
+        //添加用户数据
+        function addinfo() {
+            $("#addDiv").css("display", "block");
+            $('#addDiv').dialog({
+                title: "添加订单数据",
+                width: 900,
+                height: 300,
+                modal: true,
+                buttons: [{
+                    text: '添加',
+                    iconCls: 'icon-ok',
+                    handler: function () {
+                        $("#addForm").submit();
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $('#addDiv').dialog('close');
+                    }
+                }]
+            });
+
+        }
+        //删除用户数据
+        function deleteinfo() {
+            var rows = $('#tt').datagrid('getSelections');
+            //判断有没有被选中
+            if (!rows || rows.length == 0) {
+                //alert("请选择要修改的商品！");
+                $.messager.alert("提醒", "请选择要删除的记录!", "error");
+                return;
+            }
+            if ($.messager.confirm("提示", "确定要删除吗？", function (r) {
+                if (r) {
+                 var str = "";
+                for (var i = 0; i < rows.length; i++) {
+                str = str + rows[i].Id + ",";
+            }
+                str = str.substr(0, str.length - 1);
+                $.post("DeleteOrderBookInfo", { "strId": str }, function (data) {
+                if (data == "ok") {
+                $.messager.alert("提醒", "删除成功!", "info");
+                //loadData();
+                $('#tt').datagrid('clearSelections');
+                $('#tt').datagrid('reload');
+            }
+            else {
+                $.messager.alert("提醒", "删除失败!", "info");
+            }
+            });
+            }
+            }));
+        }
+        //添加成功后执行该方法
+        function afterAdd(data) {
+            if (data == "ok") {
+                $('#addDiv').dialog('close');
+                $('#tt').datagrid('clearSelections');
+                $('#tt').datagrid('reload');
+            } else {
+                $.messager.alert("提醒", "添加失败!", "info");
+            }
+        }
+        //修改成功后执行该方法
+        function afterEdit(data) {
+            if (data == "ok") {
+                $('#editDiv').dialog('close');
+                //loadData();
+                $('#tt').datagrid('clearSelections');
+                $('#tt').datagrid('reload');
+            }
+        }
+
+    </script>
+
+</head>
+<body>
+    <div>
+        <p>
+            订单编号：<input type="text" id="txtSearchOrderId" />&nbsp;&nbsp;<input type="button" id="btnSearch" value="搜索" />
+        </p>
+        <table id="tt" style="width: 700px;" title="标题，可以使用代码进行初始化，也可以使用这种属性的方式" iconcls="icon-edit"></table>
+    </div>
+    <!-------------------添加用户信息----------------------->
+    <div id="addDiv">
+        @using (Ajax.BeginForm("AddOrderBookInfo", new { }, new AjaxOptions() { Confirm = "确定要添加吗？", HttpMethod = "post", OnSuccess = "afterAdd" }, new { id = "addForm" }))
+        {
+            <table>
+                <tr>
+                    <td>订单编号</td>
+                    <td>
+                        @{List<Orders> orders = ViewData["orders"] as List<Orders>;}
+                        <select name="OrderID">
+                            <option value="0">请选择</option>
+                            @foreach (var order in orders)
+                            {
+                                <option value="@order.OrderId">@order.OrderId</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>图书</td>
+                    <td>
+                        @{List<Books> books = ViewData["books"] as List<Books>;}
+                        <select name="BookId">
+                            <option value="0">请选择</option>
+                            @foreach (var book in books)
+                            {
+                                <option value="@book.Id">@book.Title</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr><td>价格</td><td><input type="text" name="UnitPrice" style="width:400px" /></td></tr>
+                <tr><td>数量</td><td><input type="text" name="Quantity" style="width:400px" /></td></tr>
+            </table>
+        }
+    </div>
+    <!---------------------修改用户信息---------------------------->
+    <div id="editDiv">
+        @using (Ajax.BeginForm("EditOrderBookInfo", new { }, new AjaxOptions() { Confirm = "确定要修改吗？", HttpMethod = "post", OnSuccess = "afterEdit" }, new { id = "editForm" }))
+        {
+            <table>
+                <tr>
+                    <td>订单编号</td>
+                    <td>
+                        <input type="hidden" name="Id" id="txtId" />@{List<Orders> orders = ViewData["orders"] as List<Orders>;}
+                        <select name="OrderID" id="txtOrderID">
+                            <option value="0">请选择</option>
+                            @foreach (var order in orders)
+                            {
+                                <option value="@order.OrderId">@order.OrderId</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>图书</td>
+                    <td>
+                        @{List<Books> books = ViewData["books"] as List<Books>;}
+                        <select name="BookId" id="txtBookId">
+                            @foreach (var book in books)
+                            {
+                                <option value="@book.Id">@book.Title</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr><td>价格</td><td><input type="text" name="UnitPrice" id="txtUnitPrice" style="width:400px" /></td></tr>
+                <tr><td>数量</td><td><input type="text" name="Quantity" id="txtQuantity" style="width:400px" /></td></tr>
+            </table>
+        }
+    </div>
+</body>
+</html>

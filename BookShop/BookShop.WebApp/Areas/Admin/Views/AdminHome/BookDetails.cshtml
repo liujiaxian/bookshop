@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+}
+@using BookShop.Model
+<style type="text/css">
+    table{
+        border:1px solid #00ffff;
+        width:70%;
+        border-collapse:collapse;
+        margin:0px auto;
+    }
+        table tr td {
+            padding: 10px;
+            border: 1px solid #00ffff;
+        }
+</style>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BookDetails</title>
+</head>
+<body>
+    @{Books book = ViewData["booksmodel"] as Books;}
+    <table>
+        <caption><h3>图书详情</h3></caption>
+        <tr><td align="right" width="15%">图书编号</td><td>@book.Id</td></tr>
+        <tr><td align="right">图书标题</td><td>@book.Title</td></tr>
+        <tr><td align="right">图书作者</td><td>@book.Author</td></tr>
+        <tr><td align="right">图书出版社</td><td>@book.Publishers.Name</td></tr>
+        <tr><td align="right">图书出版时间</td><td>@book.PublishDate</td></tr>
+        <tr><td align="right">图书ISBN</td><td>@book.ISBN</td></tr>
+        <tr><td align="right">图书字数</td><td>@book.WordsCount</td></tr>
+        <tr><td align="right">图书价格</td><td>@book.UnitPrice</td></tr>
+        <tr><td align="right">图书描叙</td><td>@book.ContentDescription</td></tr>
+        <tr><td align="right">图书作者描叙</td><td>@book.AurhorDescription</td></tr>
+        <tr><td align="right">图书编者描叙</td><td>@book.EditorComment</td></tr>
+        <tr><td align="right">图书开头阅读</td><td>@book.TOC</td></tr>
+        <tr><td align="right">图书分类</td><td>@book.Categories.Name</td></tr>
+        <tr><td align="right">图书折扣</td><td>@book.Discount</td></tr>
+        <tr><td></td><td><input type="button" value="编辑" onclick="window.location='/Admin/AdminHome/EditBooksShow?id=@book.Id'" />&nbsp;&nbsp;<input type="button" value="返回" onclick="window.history.go(-1)" /></td></tr>
+    </table>
+</body>
+</html>

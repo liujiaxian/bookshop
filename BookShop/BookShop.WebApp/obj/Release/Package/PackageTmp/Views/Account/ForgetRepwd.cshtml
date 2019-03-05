@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "忘记密码重置密码";
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+}
+
+@using (Html.BeginForm("ForgetRepwd", "Account", FormMethod.Post, new { id = "frm" }))
+{
+    <div>
+        <h3><span>第三步</span><input type="hidden" name="Mail" value="@ViewData["forgetemail"].ToString()" /><i>@ViewData["forgetemail"].ToString()</i></h3>
+    </div>
+    <div>
+        <span class="pass">密　　码*</span>
+        <input type="password" name="LoginPwd" id="LoginPwd" maxlength="18">
+    </div>
+    <div>
+        <span class="pass">确认密码*</span>
+        <input type="password" name="LoginRepwd" maxlength="18">
+    </div>              
+    <input type="submit" value="重置密码">
+}
+
+@section accountfooter{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+
+    <script type="text/javascript">
+
+        $().ready(function () {
+            $("#frm").validate({
+                rules: {
+                    LoginPwd: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 18,
+                    },
+                    LoginRepwd: {
+                        required: true,
+                        equalTo: "#LoginPwd",
+                    },
+                },
+                messages: {
+                    LoginPwd: {
+                        required: "请输入密码！",
+                        minlength: "密码长度不能小于6位！",
+                        maxlength: "密码长度不能大于18位！",
+                    },
+                    LoginRepwd: {
+                        required: "请输入确认密码！",
+                        equalTo: "密码与确认密码不一致！",
+                    },
+                }
+            });
+        });
+    </script>
+}

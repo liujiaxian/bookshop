@@ -1,0 +1,60 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>图书商城后台登录</title>
+
+    <!--- CSS --->
+    <link rel="stylesheet" href="/Content/style.css" type="text/css" />
+
+
+    <!--- Javascript libraries (jQuery and Selectivizr) used for the custom checkbox --->
+    <!--[if (gte IE 6)&(lte IE 8)]>
+        <script type="text/javascript" src="/Script/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="/Script/selectivizr.js"></script>
+        <noscript><link rel="stylesheet" href="/Content/fallback.css" /></noscript>
+    <![endif]-->
+
+</head>
+
+<body>
+    <div id="container">
+        <form action="/Admin/AdminLogin/Login" method="post">
+            <input type="hidden" name="post" value="true" />
+            <div class="login">登录</div>
+            <div class="username-text">账号:</div>
+            <div class="password-text">密码:</div>
+            @if (Request.Cookies["name"] != null && Request.Cookies["pwd"] != null)
+            {
+                 <div class="username-field">
+                <input type="text" name="username" value="@ViewData["name"]" />
+            </div>
+            <div class="password-field">
+                <input type="password" name="password" value="@ViewData["pwd"]" />
+            </div>
+            }
+            else
+            {
+                               <div class="username-field">
+                <input type="text" name="username" value="" />
+            </div>
+            <div class="password-field">
+                <input type="password" name="password" value="" />
+            </div> 
+            }
+            <input type="checkbox" name="remember-me" id="remember-me" value="true" /><label for="remember-me">记住我</label>
+            <div class="forgot-usr-pwd">忘记 <a href="#">账号</a> or <a href="#">密码</a>?</div>
+            <input type="submit" name="submit" value="GO" />
+        </form>
+    </div>
+    <div id="footer">
+        图书商城 <a href="/Home/Index" target="_blank" title="图书商城">图书商城</a>
+    </div>
+</body>
+</html>
+

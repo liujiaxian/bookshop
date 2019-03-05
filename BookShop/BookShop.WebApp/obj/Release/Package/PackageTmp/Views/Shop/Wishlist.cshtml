@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "订单页面";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@using BookShop.Model
+@using BookShop.Common
+@section head{
+    <link href="~/Content/PageBar.css" rel="stylesheet" />
+    <link href="~/Content/shopstyle.css" rel="stylesheet" />
+    <script type="text/javascript">
+        function delorder(id) {
+            alert(id);
+            if (confirm("确定删除该条记录吗？")) {
+                $.post("/Shop/DelOrder", { id: id }, function (data) {
+
+                    if (data == "ok") {
+                        alert("删除成功！");
+                        window.location.reload();
+                    } else {
+                        alert("删除失败！");
+                    }
+                });
+            }
+        }
+    </script>
+}
+<div class="content">
+    <div class="check-out">
+        @if (ViewData["orderlist"] == null)
+        {
+            <h4 class="title">暂无订单记录</h4>
+            <p class="cart-out">
+                你还没有购买过商品.
+                <br>
+                点击
+                <a href="/Home/Index">这里</a>
+                购买
+            </p>
+        }
+        else
+        {
+            var cartlist = ViewData["orderlist"] as List<Orders>;
+
+            <div class="wish-list cartwidth">
+                <table>
+                    <tr>
+                        <th>订单编号</th>
+                        <th>用户</th>
+                        <th>金额</th>
+                        <th>联系方式</th>
+                        <th>状态</th>
+                        <th>下单时间</th>
+                        <th>操作</th>
+                    </tr>
+                    @foreach (var cart in cartlist)
+                    {
+                        string statename = "未完成";
+                        if (cart.state == 1)
+                        {
+                            statename = "已完成";
+                        }
+                        <tr>
+                            <td align="left" width="10%"><a href="/Shop/WishlistDetail?orderid=@cart.OrderId" title="点击查看订单详细">@cart.OrderId</a></td>
+                            <td width="10%">@cart.Users.Name</td>
+                            <td width="10%">@cart.TotalPrice.ToString("0.00")</td>
+                            <td width="20%" align="left">
+                                <textarea readonly="readonly" style="width: 100%">@cart.PostAddress</textarea>
+                            </td>
+                            <td width="10%">@statename</td>
+                            <td align="center" width="20%">@Convert.ToDateTime(cart.OrderDate).ToString("yyyy-MM-dd HH:mm:ss")</td>
+                            <td width="20%"><a href="/Shop/DelOrder?id=@cart.OrderId">删除</a></td>
+                        </tr>
+
+                    }
+                </table>
+                <p class="page_nav">
+                    @Html.Raw(MyPageBar.PageSortCart((int)ViewBag.PageIndex, (int)ViewBag.PageCount))
+                </p>
+            </div>
+
+        }
+    </div>
+
+</div>

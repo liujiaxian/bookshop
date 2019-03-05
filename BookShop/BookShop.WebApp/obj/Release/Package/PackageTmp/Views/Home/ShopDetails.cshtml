@@ -1,0 +1,380 @@
+﻿@{
+    ViewBag.Title = "商品详情";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+@using BookShop.Model
+@using BookShop.Common
+@section head{
+    <link rel="stylesheet" href="/Content/etalage.css">
+    <link href="~/Content/bookcomment.css" rel="stylesheet" />
+    <link href="~/Content/PageBar.css" rel="stylesheet" />
+    <link href="~/Content/star-rating.css" rel="stylesheet" />
+    <script src="/Scripts/jquery.etalage.min.js"></script>
+    <script src="~/Scripts/star-rating.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('#etalage').etalage({
+                thumb_image_width: 300,
+                thumb_image_height: 400,
+                source_image_width: 900,
+                source_image_height: 1200,
+                show_hint: true,
+                click_callback: function (image_anchor, instance_id) {
+                    alert('Callback example:\nYou clicked on an image with the anchor: "' + image_anchor + '"\n(in Etalage instance: "' + instance_id + '")');
+                }
+            });
+
+        });
+        //增加数量
+        function addcount() {
+            var count = $("#txtcount").val();
+            var store = $("#txtstore").val();
+            var price = $("#txtprice").text();
+            //alert(count + "|" + store + "|" + price);
+            if (parseInt(count) >= parseInt(store)) {
+                alert("亲，数量不能超过库存哦！");
+            } else {
+                $("#txtcount").attr("value", parseInt(count) + 1);
+                $("#txttotalprice").text((parseFloat(price) * (parseInt(count) + 1)).toFixed(2));
+            }
+        }
+        //减少数量
+        function subcount() {
+            var count = $("#txtcount").val();
+            var price = $("#txtprice").text();
+            if (parseInt(count) <= 1) {
+                alert("亲，数量不能小于0哦！");
+            } else {
+                $("#txtcount").attr("value", parseInt(count) - 1);
+                $("#txttotalprice").text((parseFloat(price) * (parseInt(count) - 1)).toFixed(2));
+            }
+        }
+        //手动输入数量
+        function inputcount() {
+            var count = $("#txtcount").val();
+            var store = $("#txtstore").val();
+            var price = $("#txtprice").text();
+            if (!(/^(\+|-)?\d+$/.test(count)) || count <= 0) {
+                alert("亲，数量只能输入正整数哦！");
+                $("#txtcount").attr("value", 1);
+                $("#txttotalprice").text((parseFloat(price) * (parseInt($("#txtcount").val()))).toFixed(2));
+            } else if (parseInt(count) > parseInt(store)) {
+                alert("亲，数量不能大于库存哦！");
+                $("#txtcount").attr("value", parseInt(store));
+                $("#txttotalprice").text((parseFloat(price) * (parseInt($("#txtcount").val()))).toFixed(2));
+            } else {
+                $("#txttotalprice").text((parseFloat(price) * (parseInt(count))).toFixed(2));
+            }
+        }
+        //评论
+        $(function () {
+            LoadUBBCode();//加载UBB编辑器
+            $("#btnComment").click(function () {
+                AddComment();
+            });
+        });
+        function AddComment() {
+            //var msg = $("#msg").val();
+            var oEditor = CKEDITOR.instances.msg;
+            var msg = oEditor.getData();
+            var bookid = $("#txtbookid").val();
+            var rating = $(".ratingcount").text();
+
+            $.post("/Shop/AddComment", { "Msg": msg, "bookid": bookid, rating: rating }, function (data) {
+                var serverData = data.split(':');
+                if (serverData[0] == "no") {
+                    alert(serverData[1]);
+                } else if (serverData[0] == "nologin") {
+                    alert(serverData[1]);
+                    window.location = "/Account/Index?redirecturl=" + serverData[2];
+                }
+                else {
+                    alert(serverData[1]);
+                    window.location.reload();
+                }
+                oEditor.getData("");
+            })
+        }
+        function LoadUBBCode() {
+            CKEDITOR.replace('msg',
+				{
+				    extraPlugins: 'bbcode',
+				    // Remove unused plugins.
+				    removePlugins: 'bidi,button,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,indent,justify,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates',
+				    // Width and height are not supported in the BBCode format, so object resizing is disabled.
+				    disableObjectResizing: true,
+				    // Define font sizes in percent values.
+				    fontSize_sizes: "30/30%;50/50%;100/100%;120/120%;150/150%;200/200%;300/300%",
+				    toolbar:
+					[
+						['Source', '-', 'Save', 'NewPage', '-', 'Undo', 'Redo'],
+						['Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'],
+						['Link', 'Unlink', 'Image', 'Smiley', 'SpecialChar'],
+						'/',
+						['Bold', 'Italic', 'Underline'],
+						['FontSize'],
+						['TextColor'],
+						['NumberedList', 'BulletedList', '-', 'Blockquote'],
+						['Maximize']
+					],
+				    // Strip CKEditor smileys to those commonly used in BBCode.
+				    smiley_images:
+					[
+						'regular_smile.gif', 'sad_smile.gif', 'wink_smile.gif', 'teeth_smile.gif', 'tounge_smile.gif',
+						'embaressed_smile.gif', 'omg_smile.gif', 'whatchutalkingabout_smile.gif', 'angel_smile.gif', 'shades_smile.gif',
+						'cry_smile.gif', 'kiss.gif'
+					],
+				    smiley_descriptions:
+					[
+						'smiley', 'sad', 'wink', 'laugh', 'cheeky', 'blush', 'surprise',
+						'indecision', 'angel', 'cool', 'crying', 'kiss'
+					]
+				});
+
+            //]]>
+
+        }
+
+
+        //购买
+        function shopbook(id) {
+            var count = $("#txtcount").val();
+            window.location.href = "/Shop/OrderInfo?id=" + id + "&count=" + count;
+        }
+    </script>
+}
+@{if (ViewData["bookmodel"] != null)
+  {
+      Books book = ViewData["bookmodel"] as Books;
+    <div class="col-md-9">
+        <div class="col-md-5 single-top">
+            <ul id="etalage">
+                <li>
+                    <a href="optionallink.html">
+                        <img class="etalage_thumb_image img-responsive" src="@string.Format("/Images/BookCovers/{0}.jpg", book.ISBN)" alt="@book.Title">
+                        <img class="etalage_source_image img-responsive" src="@string.Format("/Images/BookCovers/{0}.jpg", book.ISBN)" alt="@book.Title">
+                    </a>
+                </li>
+                <li>
+                    <img class="etalage_thumb_image img-responsive" src="@string.Format("/Images/BookCovers/{0}.jpg", book.ISBN)" alt="@book.Title">
+                    <img class="etalage_source_image img-responsive" src="@string.Format("/Images/BookCovers/{0}.jpg", book.ISBN)" alt="@book.Title">
+                </li>
+                <li>
+                    <img class="etalage_thumb_image img-responsive" src="@string.Format("/Images/BookCovers/{0}.jpg", book.ISBN)" alt="@book.Title">
+                    <img class="etalage_source_image img-responsive" src="@string.Format("/Images/BookCovers/{0}.jpg", book.ISBN)" alt="@book.Title">
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-7 single-top-in">
+            <div class="single-para">
+                <input type="hidden" name="bookid" id="txtbookid" value="@book.Id" />
+                <h4>@book.Title</h4>
+                <span>@TextHide.GetSubString(book.ContentDescription, 120)</span>
+                <div class="para-grid">
+                    <span class="add-to">￥<span id="txtprice">@book.UnitPrice.ToString("0.00")</span> 元</span>
+                    <a href="javascript:void(0)" class="cart-to" onclick="AddCart(@book.Id)">添加到购物车</a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="bookparams">
+                    <span class="">作者：<span>@book.Author</span></span>
+                    <span class="pull-right">字数：<span>@book.WordsCount</span></span>
+                    <div class="clearfix"></div>
+                </div>
+                <div style="margin-bottom: 5px;"></div>
+                <div class="bookparams">
+                    <span class="">出版社：<span>@book.Publishers.Name</span></span>
+                    <span class="pull-right">出版时间：<span>@Convert.ToDateTime(book.PublishDate).ToString("yyyy-MM-dd")</span></span>
+                    <div class="clearfix"></div>
+                </div>
+                <div style="margin-bottom: 5px;"></div>
+                <div class="bookparams">
+                    <span class="">ISBN：<span>@book.ISBN</span></span>
+                    <span class="pull-right">折扣：<span>@book.Discount</span>%</span>
+                    <div class="clearfix"></div>
+                </div>
+                <div style="margin-bottom: 5px;"></div>
+                <h5>
+                    <input type="hidden" name="store" id="txtstore" value="@book.Store" />@book.Store 库存
+                </h5>
+                <div class="available">
+                    <h6>数量 :&nbsp;
+                        <button onclick="addcount()">+</button>&nbsp;<input type="text" id="txtcount" name="count" value="1" style="width: 40px; text-align: center;" onblur="inputcount()" />&nbsp;
+                        <button onclick="subcount()">-</button>
+                        <span class="pull-right add-to">￥<span id="txttotalprice">@book.UnitPrice.ToString("0.00")</span> 元</span>
+                    </h6>
+                </div>
+                <a href="javascript:void(0)" onclick="shopbook(@book.Id)" class="cart-an ">购买</a>
+                <div class="share">
+                    <h4>分享产品</h4>
+                    <ul class="social-in bdsharebuttonbox">
+                        <li>
+                            <a href="#" class="bds_more" data-cmd="more"></a>
+                        </li>
+                        <li>
+                            <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                        </li>
+                        <li>
+                            <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                        </li>
+                        <li>
+                            <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                        </li>
+                    </ul>
+                    <br />
+                     <h4>共有 @book.hotcount 人浏览过此图书</h4>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <h3 style="padding:20px 0px;">购买过此图书的人还购买过</h3>
+        <ul id="flexiselDemo2">
+            @{List<Books> combook = new List<Books>();}
+            @if (ViewData["combook"] != null)
+            {
+                combook = ViewData["combook"] as List<Books>;
+                foreach (var item in combook)
+                {
+                <li>
+                    <a href="/Home/ShopDetails?id=@item.Id">
+                        <img src="@string.Format("/Images/BookCovers/{0}.jpg", item.ISBN)" style="width:129px;height:200px" />
+                        <div class="grid-flex">
+                            @WebCommon.CurrentString(item.Title, 15)
+
+                            <p>￥ @item.UnitPrice.ToString("0.00")</p>
+                        </div>
+                    </a>
+                </li>
+                }
+            }
+        </ul>
+        <script type="text/javascript">
+            $(window).load(function () {
+                $("#flexiselDemo2").flexisel({
+                    visibleItems: '@(combook.Count<=5?combook.Count:5)',
+                    animationSpeed: 1000,
+                    autoPlay: '@(combook.Count<=5?false:true)',
+                    autoPlaySpeed: 3000,
+                    pauseOnHover: true,
+                    clone: false,
+                    enableResponsiveBreakpoints: true,
+                    responsiveBreakpoints: {
+                        portrait: {
+                            changePoint: 480,
+                            visibleItems: 1
+                        },
+                        landscape: {
+                            changePoint: 640,
+                            visibleItems: 2
+                        },
+                        tablet: {
+                            changePoint: 768,
+                            visibleItems: 3
+                        }
+                    }
+                });
+
+            });
+        </script>
+        <script type="text/javascript" src="/Scripts/jquery.flexisel.js"></script>
+        <!---->
+        <div class="single-para book-details">
+            <h4>作者描述</h4>
+            <span>@Html.Raw(WebCommon.CurrentString(book.AurhorDescription, 300))</span>
+            <br />
+            <h4>内容简介</h4>
+            <span>@Html.Raw(WebCommon.CurrentString(book.ContentDescription, 300))</span>
+            <h4>编者描述</h4>
+            <span>@Html.Raw(WebCommon.CurrentString(book.EditorComment, 300))</span>
+            <h4>开遍导读</h4>
+            <span>@Html.Raw(WebCommon.CurrentString(book.TOC, 300))</span>
+        </div>
+        <!---->
+        <div class="comment-grid-top bookcomment">
+
+            @if (Convert.ToInt32(book.rating) > 0)
+            {
+                <h3>商品总体评分</h3>
+                <div>
+                    <input value="@book.rating" type="number" class="rating" min="0" max="5" step="0.5" data-size="sm" readonly="readonly" />
+                </div>
+            }
+
+            <h3>
+                @if (ViewBag.TotalCount != null)
+                {
+                    @ViewBag.TotalCount;
+                }
+                else
+                {
+                    @:暂无
+                }
+                评论
+            </h3>
+            @if (ViewData["comment"] != null)
+            {
+                List<BookComment> comment = ViewData["comment"] as List<BookComment>;
+                foreach (var com in comment)
+                {
+                <div class="comments-top-top">
+                    @if (string.IsNullOrEmpty(com.Users.Image))
+                    {
+                        <div class="top-comment-left">
+                            <img class="img-responsive" src="/Images/co.png" alt="" style="border-radius: 50%; width: 80px; height: 80px;" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="top-comment-left">
+                            <img class="img-responsive" src="@com.Users.Image" alt="" style="border-radius:50%;width:80px;height:80px;" />
+                        </div>
+                    }
+
+                    <div class="top-comment-right">
+                        <ul>
+                            <li><span class="left-at">@com.Users.Mail</span></li>
+                            <li><span class="right-at">@Converter.ToChsStr(com.RegTime)</span></li>
+                            @*<li><a class="reply" href="#">回复</a></li>*@
+                        </ul>
+                        <p>@Html.Raw(WebCommon.Decode(com.Msg))</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                }
+            }
+            <p class="page_nav">
+                @if (ViewBag.PageCount != null)
+                {
+                    @Html.Raw(MyPageBar.PageSort((int)ViewBag.PageIndex, (int)ViewBag.PageCount, (int)ViewBag.Id))
+                }
+            </p>
+            <div class="clearfix"></div>
+        </div>
+        <div onclick="btn_stars()" title="给商品评个分呗">
+            <input id="input-21d" value="0" type="number" class="rating" min="0" max="5" step="0.5" data-size="sm" />
+            <input type="hidden" value="" id="txtstarsvalue" />
+        </div>
+        <!--回复结束-->
+        <script src="~/Ckeditor/ckeditor.js"></script>
+        <div>
+            <textarea style="width: 100%;" rows="4" id="msg"></textarea><br />
+            <a href="javascript:void(0)" class="cart-an" id="btnComment">评论</a>
+        </div>
+        <!---->
+    </div>
+  }}
+<script>
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "",
+            "bdMini": "2",
+            "bdMiniList": false,
+            "bdPic": "",
+            "bdStyle": "0",
+            "bdSize": "16"
+        },
+        "share": {}
+    };
+    with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+
+</script>

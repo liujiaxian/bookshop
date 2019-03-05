@@ -1,0 +1,110 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <title>Index</title>
+    <link href="~/Content/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/themes/icon.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui-lang-zh_CN.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
+    <style type="text/css">
+        #title {
+            font-size: 30px;
+            color: blue;
+        }
+
+        #admin {
+            float: right;
+            padding-right: 100px;
+            padding-top: 20px;
+        }
+        .easyui-accordion li
+        {
+            list-style:none;
+            padding-bottom:5px;
+        }
+        .easyui-accordion li a {
+            text-decoration:none;
+        }
+            .easyui-accordion li a:hover {
+                text-decoration:underline;
+                color:red;
+            }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            bindMenuEvent();
+        });
+        function bindMenuEvent() {
+            $(".add-menu").click(function () {
+                var title = $(this).text();
+                var isExt = $("#tt").tabs("exists", title);
+                if (isExt) {
+                    $("#tt").tabs("select", title);
+                }
+                else {
+                    var url = $(this).attr("url");
+                    var content = createContent(url);
+                    $('#tt').tabs('add', {
+                        title: title,
+                        content: content,
+                        closable: true
+                    });
+                }
+            });
+        }
+        function createContent(url) {
+            var strHtml = "<iframe src='" + url + "' style='width:100%; height:100%' scrolling='auto' frameborder='0'></iframe>";
+            return strHtml;
+        }
+    </script>
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'north',border:false" style="height:80px;background:#B3DFDA;padding:20px;overflow:hidden;" id="top"><span id="title"><a href="/Home/Index"><img src="/Images/logo.png" title="网站前台首页" height="55" /></a></span><span id="admin">欢迎【@ViewData["name"]】管理员　　<a href="/Admin/AdminHome/Layout">注销</a></span></div>
+    <div data-options="region:'west',split:true,title:'菜单'" style="width:150px;padding:0px;">
+        <div class="easyui-accordion" data-options="multiple:true" style="width:auto;height:auto;">
+            <div title="用户管理" data-options="iconCls:'icon-ok'" style="overflow:auto;padding:10px;">
+                <li><a href="javascript:void(0)" class="add-menu" url="/Admin/AdminHome/ShowUserInfo">用户管理</a></li>
+                <li><a href="javascript:void(0)" class="add-menu" url="/Admin/AdminHome/ShowRoleInfo">角色管理</a></li>
+                <li><a href="javascript:void(0)" class="add-menu" url="/Admin/AdminHome/ShowActionInfo">权限管理</a></li>
+            </div>
+            <div title="配置管理" style="padding:10px;">
+                <a href="javascript:void(0)" class="add-menu" url="/Admin/AdminHome/ShowSettingsInfo">配置管理</a>
+            </div>
+            <div title="分类管理" style="padding:10px;">
+                <a href="javascript:void(0)" class="add-menu" url="/Admin/AdminHome/ShowCategoriesInfo">分类管理</a>
+            </div>
+            <div title="图书管理" style="padding:10px;">
+                <li><a href="javascript:void(0)" class="add-menu" url="/Admin/AdminHome/ShowBooksInfo">图书管理</a></li>
+                <li><a href="javascript:void(0)" class="add-menu" url="/Admin/AdminHome/ShowPublisherInfo">出版社管理</a></li>
+            </div>
+            <div title="订单管理" style="padding:10px;">
+                <li><a href="javascript:void(0)" class="add-menu" url="/Admin/AdminHome/ShowOrderBookInfo">订单管理</a></li>
+                <li><a href="javascript:void(0)" class="add-menu" url="/Admin/AdminHome/ShowOrdersInfo">订单详情管理</a></li>
+                <li><a href="javascript:void(0)" class="add-menu" url="/Admin/AdminHome/ShowCartInfo">购物车管理</a></li>
+            </div>
+            <div title="评论管理" style="padding:10px;">            
+                <li><a href="javascript:void(0)" class="add-menu" url="/Admin/AdminHome/ShowCommentInfo">评论管理</a></li>
+                <li><a href="javascript:void(0)" class="add-menu" url="/Admin/AdminHome/ShowAddCode">敏感词管理</a></li>
+            </div>       
+        </div>
+    </div>
+    <div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;"><div style="text-align:center;margin-top:10px;">版权所有&copy;图书商城</div></div>
+    <div data-options="region:'center',title:'主界面'" style="overflow:auto;">
+        <div class="easyui-tabs" fit="true" id="tt">
+            <div title="用户管理" data-options="closable:true" style="overflow:auto;">
+                <iframe src="/Admin/AdminHome/ShowUserInfo" style=" width:100%; height:100%" scrolling="no" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

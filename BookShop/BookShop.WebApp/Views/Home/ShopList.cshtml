@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "图书";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@using BookShop.Model
+@using BookShop.Common
+@section head{
+    <link href="~/Content/PageBar.css" rel="stylesheet" />
+    <style type="text/css">
+        .content-bottom .bottom-grid-top:hover {
+            box-shadow: 0 0 10px #f02b63;
+        }
+    </style>
+}
+@{List<Books> bookslist = ViewData["booklist"] as List<Books>;}
+<div class="content">
+    <div class="content-bottom store">
+        <h3 style="padding-left:15px;margin-bottom:20px;">@ViewData["catname"].ToString() 图书</h3>
+        @foreach (var item in bookslist)
+        {
+            <div class="col-md-3 store-top" style="margin-bottom:30px;">
+                <div class="bottom-grid-top">
+                    <a href="/Home/ShopDetails?id=@item.Id">
+                        <img class="img-responsive" src="@string.Format("/Images/BookCovers/{0}.jpg", item.ISBN)" alt="" style="width:100%;height:262px !important;"></a>
+                        <div class="five">
+                            <h6 class="one">@(item.Discount * 1.0 / 10)折</h6>
+                        </div>
+                        <div class="pre" style="height: 74px;">
+                            <a href="/Home/ShopDetails?id=@item.Id"><p>@WebCommon.CurrentString(item.Title, 30)</p></a>
+                            <br />
+                            <br />
+                            <span class="pull-left" style="cursor:pointer;" onclick="AddCart(@item.Id)"><i class="glyphicon glyphicon-shopping-cart"></i>加入购物车</span><span class="pull-right">￥@item.UnitPrice.ToString("0.00")</span>
+                            <div class="clearfix"></div>
+                        </div>
+                    
+                </div>
+            </div>
+        }
+    </div>
+    <p class="page_nav">
+        @Html.Raw(MyPageBar.PageSort((int)ViewBag.PageIndex, (int)ViewBag.PageCount, (int)ViewBag.Id))
+    </p>
+</div>

@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FB3F8CD8-5E6F-4408-A1ED-B519EAEBBFB5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BookShop.BLL</RootNamespace>
+    <AssemblyName>BookShop.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArticelWordsBLL.cs" />
+    <Compile Include="BaseBLL.cs" />
+    <Compile Include="BookCommentBLL.cs" />
+    <Compile Include="BooksBLL.cs" />
+    <Compile Include="CartBLL.cs" />
+    <Compile Include="CategoriesBLL.cs" />
+    <Compile Include="IManager.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="keyWordsRankBLL.cs" />
+    <Compile Include="OrderBookBLL.cs" />
+    <Compile Include="OrdersBLL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublishersBLL.cs" />
+    <Compile Include="recommend_logBLL.cs" />
+    <Compile Include="RoleInfoBLL.cs" />
+    <Compile Include="ActionInfoBLL.cs" />
+    <Compile Include="SettingsBLL.cs" />
+    <Compile Include="UsersBLL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BookShop.DALFactory\BookShop.DALFactory.csproj">
+      <Project>{a0f052ef-cee9-401d-86c7-e91f95926701}</Project>
+      <Name>BookShop.DALFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BookShop.IBLL\BookShop.IBLL.csproj">
+      <Project>{0b3de41a-92f7-435b-bfbf-685a5570c1ae}</Project>
+      <Name>BookShop.IBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BookShop.IDAL\BookShop.IDAL.csproj">
+      <Project>{340a7fd1-d5ef-4a01-853e-4fff7e7dab4b}</Project>
+      <Name>BookShop.IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BookShop.Model\BookShop.Model.csproj">
+      <Project>{cd5ffe57-5668-4bf2-ad06-13159c30b3b7}</Project>
+      <Name>BookShop.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IManager.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IManager.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "图书";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+@using BookShop.Model
+@using BookShop.Common
+@section head{
+    <link href="~/Content/PageBar.css" rel="stylesheet" />
+    <script type="text/javascript">
+        //添加到购物车
+        function AddCart(id) {
+            var catid=$("#txtcatid").val();
+            $.post("/Shop/AddCartTo", { "id": id }, function (data) {
+                var str = data.split(':');
+                if (str[0] == "ok") {
+                    alert(str[1]);
+                    window.location.reload();
+                } else if (str[0]=="nologin") {
+                    alert(str[1]);
+                    window.location="/Account/Index?redirect="+str[2]+catid;
+                } else {
+                    alert(str[1]);
+                }
+            });
+        }
+    </script>
+}
+<div class="col-md-9">
+    @{List<Books> books = ViewData["catbooks"] as List<Books>; int i = 1;
+    foreach (var book in books)
+    {
+        if (i % 2 != 0)
+        {
+            @Html.Raw(ViewData["header"].ToString())
+        }
+        <div class="col-md-6">
+            <div class="ut-in">
+                <a href="/Home/ShopDetails?id=@book.Id">
+                    <img class="img-responsive" src="@string.Format("/Images/BookCovers/{0}.jpg", book.ISBN)" alt="@book.Title" style="height:284px !important;">
+                </a>
+                <input type="hidden" name="catid" id="txtcatid" value="@ViewBag.Id" />
+                <div class="ut">
+                    <h6>
+                        <a href="/Home/ShopDetails?id=@book.Id">@TextHide.GetSubString(book.Title, 26)</a>
+                    </h6>
+                    <span>￥@book.UnitPrice.ToString("0.00")元</span>
+                    <a href="javascript:void(0)" class="add" onclick="AddCart(@book.Id)">添加到购物车</a>
+                </div>
+            </div>
+        </div>
+        if (i % 2 == 0)
+        {
+            @Html.Raw(ViewData["footer"].ToString())
+        }
+        if (books.Count == 1 || (books.Count == 3 && i > 2) || (books.Count == 5 && i > 4))
+        {
+            @Html.Raw(ViewData["footer"].ToString())
+        }
+        i++;
+    }
+    }
+    <p class="page_nav">
+        @Html.Raw(MyPageBar.PageSort((int)ViewBag.PageIndex, (int)ViewBag.PageCount, (int)ViewBag.Id))
+    </p>
+</div>

@@ -1,0 +1,424 @@
+﻿@using BookShop.Model
+@using BookShop.IBLL
+@using BookShop.BLL
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title - 欢乐购图书商城</title>
+    <link href="/Content/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/Scripts/jquery-1.8.2.min.js"></script>
+    <!-- Custom Theme files -->
+    <!--theme-style-->
+    <link href="/Content/stylefont.css" rel="stylesheet" type="text/css" media="all" />
+    <!--//theme-style-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <!--以IE8模式渲染-->
+    <meta name="keywords" content="" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!--fonts-->
+    <link href='http://fonts.useso.com/css?family=Cabin:400,500,600,700' rel='stylesheet' type='text/css'>
+    <!--//fonts-->
+    <!--//slider-script-->
+    <script>
+        $(document).ready(function (c) {
+            $('.alert-close').on('click', function (c) {
+                $('.message').fadeOut('slow', function (c) {
+                    var id = $("#delcart").val();
+                    $.post("/Shop/DelCart", { id: id }, function (data) {
+                        if (data == "ok") {
+                            $('.message').remove();
+                            window.location.reload();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function (c) {
+            $('.alert-close1').on('click', function (c) {
+                $('.message1').fadeOut('slow', function (c) {
+                    var id1 = $("#delcart1").val();
+                    $.post("/Shop/DelCart", { id: id1 }, function (data) {
+                        if (data == "ok") {
+                            $('.message1').remove();
+                            window.location.reload();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function (c) {
+            $('.alert-close2').on('click', function (c) {
+                $('.message2').fadeOut('slow', function (c) {
+                    var id2 = $("#delcart2").val();
+                    $.post("/Shop/DelCart", { id: id2 }, function (data) {
+                        if (data == "ok") {
+                            $('.message2').remove();
+                            window.location.reload();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+    <script type="text/javascript" src="/Scripts/move-top.js"></script>
+    <script type="text/javascript" src="/Scripts/easing.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+            });
+        });
+    </script>
+    <!-- 搜索 -->
+    <script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#searchText").autocomplete({
+                source: "/Search/AutoComplete"
+            });
+        });
+    </script>
+
+    <!-- start menu -->
+    <link href="/Content/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="/Scripts/megamenu.js"></script>
+    <script>$(document).ready(function () { $(".megamenu").megamenu(); });</script>
+
+    @RenderSection("head", false)
+</head>
+<body>
+    <!--header-->
+    <div class="container">
+        <div class="header" id="home">
+            @{ISettingsBLL setbll = new SettingsBLL(); var set = setbll.LoadEntities(c => c.key == "公告").FirstOrDefault(); var setjs = setbll.LoadEntities(c => c.key == "网站介绍").FirstOrDefault(); string[] str = setjs.value.Split('-');}
+            <div class="header-para">
+                <p>
+                    @str[0].ToString()
+                    <span>
+                        @str[1].ToString()
+                    </span>
+                </p>
+            </div>
+            <ul class="header-in">
+                @if (Session["user"] != null)
+                {
+                    Users user = Session["user"] as Users;
+                    <li>欢迎会员<a href="/Personal/Index">@user.Mail</a>
+                    </li>
+                    <li>
+                        <a href="/Shop/Cart">购物车</a>
+                    </li>
+                    <li>
+                        <a href="/Shop/Wishlist">订单</a>
+                    </li>
+                    if (user.UserRoleId == 1)
+                    {
+                    <li>
+                        <a href="/Admin/AdminLogin/Index">管理</a>
+                    </li>
+                    }
+                    <li>
+                        <a href="/Account/Layout">注销</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="/Account/Index">我的账号</a>
+                    </li>
+                    <li>
+                        <a href="/Account/ForgetPwd">忘记密码</a>
+                    </li>
+                }
+                <li>
+                    <a href="/Home/Contact">联系我们</a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <!---->
+        <div class="header-top">
+            <div class="logo">
+                <a href="/Home/Index">
+                    <img src="/Images/logo.png" alt="">
+                </a>
+            </div>
+            <div class="header-top-on" style="width: 70%; float: right;">
+                <form action="/Search/Create" method="get">
+                    <div class="input-group" style="width: 100%;">
+                        <input type="text" name="searchText" class="form-control" placeholder="搜索图书...">
+                        <span class="input-group-btn">
+                            <input class="btn btn-default btnsearch" type="submit" name="btnSearch" value="搜索" />
+                        </span>
+                    </div>
+                    <!-- /input-group -->
+                </form>
+                @*<ul class="social-in">
+                <li>
+                    <a href="#">
+                        <i></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="ic"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="ic1"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="ic2"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="ic3"></i>
+                    </a>
+                </li>
+            </ul>*@
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="header-bottom">
+            <div class="top-nav">
+                @{ICategoriesBLL catbll = new CategoriesBLL();
+                  var cat0 = catbll.LoadEntities(c => c.PId == 0).ToList();
+                  var cat1 = catbll.LoadEntities(c => c.PId == 1).ToList();
+                  var cat2 = catbll.LoadEntities(c => c.PId == 2).ToList();
+                  var cat3 = catbll.LoadEntities(c => c.PId == 3).ToList();
+                }
+                <ul class="megamenu skyblue nav_main">
+                    <li class="grid">
+                        <a href="/Home/Index">全部图书</a>
+
+                        <div class="megapanel">
+                            <div class="row">
+                                <div class="col1">
+                                    <div class="h_nav">
+                                        <ul>
+                                            @foreach (var item1 in cat1)
+                                            {
+                                                <li>
+                                                    <a href="/Home/ShopList?id=@item1.Id">@item1.Name</a>
+                                                </li>
+                                            }
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col1">
+                                    <div class="h_nav">
+                                        <ul>
+                                            @foreach (var item2 in cat2)
+                                            {
+                                                <li>
+                                                    <a href="/Home/ShopList?id=@item2.Id">@item2.Name</a>
+                                                </li>
+                                            }
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col1">
+                                    <div class="h_nav">
+                                        <h4>图书榜</h4>
+                                        <ul>
+                                            @foreach (var item3 in cat3)
+                                            {
+                                                <li>
+                                                    <a href="/Home/ShopList?id=@item3.Id">@item3.Name</a>
+                                                </li>
+                                            }
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="grid">
+                        <a class="pink" href="/Home/Index">首页</a>
+                    </li>
+                    <li class="grid">
+                        <a href="/Home/ShopGifts?id=83">光盘</a>
+                    </li>
+
+                    <li class="grid">
+                        <a class="pink" href="/Home/ShopGifts?id=84">视频教程</a>
+                    </li>
+                    <li class="grid">
+                        <a href="/Home/ShopReaderList?id=85">在线阅读</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="cart icon1 sub-icon1">
+                <h6>购物车:
+                    @{
+                        if (Session["user"] != null)
+                        {
+                            var user = Session["user"] as Users;
+                            ICartBLL cartbll = new CartBLL();
+                            var cart = cartbll.LoadEntities(c => c.UserId == user.Id);
+                            var cartview = cartbll.LoadEntities(c => c.UserId == user.Id).OrderByDescending(c => c.Id).Skip<Cart>(0).Take<Cart>(3);
+                            var count = cart.Count();
+                            decimal allmoney = 0;
+                            int i = 0;
+                            foreach (var item in cart.ToList())
+                            {
+                                allmoney = allmoney + (int)item.Count * (decimal)item.Books.UnitPrice;
+                            }
+                        <span class="item">@count 本</span>
+                        <span class="rate">@allmoney.ToString("0.00") 元</span>
+                        <li>
+                            <a href="#" class="round"></a>
+                            <ul class="sub-icon1 list">
+                                <h3>最近添加图书(@count)</h3>
+                                <div class="shopping_cart">
+                                    @foreach (var item1 in cartview)
+                                    {
+                                        <div class="cart_box">
+                                            @if (i == 0)
+                                            {
+                                                <div class='message'>
+                                                    <div class='alert-close'></div>
+                                                    <div class="list_img">
+                                                        <a href="/Home/ShopDetails?id=@item1.BookId">
+                                                            <img src="@string.Format("/Images/BookCovers/{0}.jpg", item1.Books.ISBN)" class="img-responsive" alt=""></a>
+                                                    </div>
+                                                    <div class="list_desc">
+                                                        <h4>
+                                                            <a href="/Home/ShopDetails?id=@item1.BookId">
+                                                                @if (item1.Books.Title.Length <= 15)
+                                                                { @item1.Books.Title}
+                                                                else
+                                                                {@item1.Books.Title.Substring(0, 15)<span>......</span>}
+                                                            </a>
+                                                        </h4>
+
+                                                        <a href="/Shop/Cart" class="offer">数量 @item1.Count 下单</a>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <input type="hidden" id="delcart" value="@item1.Id" />
+                                            }
+                                            else
+                                            {
+                                                <div class="@string.Format("message{0}", i)">
+                                                    <div class="@string.Format("alert-close{0}", i)"></div>
+                                                    <div class="list_img">
+                                                        <a href="/Home/ShopDetails?id=@item1.BookId">
+                                                            <img src="@string.Format("/Images/BookCovers/{0}.jpg", item1.Books.ISBN)" class="img-responsive" alt=""></a>
+                                                    </div>
+                                                    <div class="list_desc">
+                                                        <h4>
+                                                            <a href="/Home/ShopDetails?id=@item1.BookId">
+                                                                @if (item1.Books.Title.Length <= 15)
+                                                                { @item1.Books.Title}
+                                                                else
+                                                                {@item1.Books.Title.Substring(0, 15)<span>......</span>}
+                                                            </a>
+                                                        </h4>
+
+                                                        <a href="#" class="offer">数量 @item1.Count 下单</a>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <input type="hidden" id="@string.Format("delcart{0}", i)" value="@item1.Id" />
+                                            }
+
+                                        </div>
+                                            i++;
+
+                                    }
+                                </div>
+                                <div class="check_button">
+                                    <a href="/Shop/Cart">查看购物车</a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </ul>
+                        </li>
+                        }
+                        else
+                        {
+                        <span class="item" onclick="window.location='/Account/Index'" style="cursor: pointer;">亲，登录后才能查看购物车哦！</span>
+                        }
+                    }
+
+                </h6>
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="copyrights">
+            Collect from
+            <a href="/Home/Index">图书商城</a>
+        </div>
+        <div class="page">
+            <h6>
+                <a href="/Home/Index" title="点击跳转首页">公告</a> <b>|</b>
+                <span class="for">
+                    @set.value
+                </span>
+            </h6>
+        </div>
+
+        @RenderBody()
+        <!---->
+        <div class="footer">
+            <p class="footer-class">
+                Copyright &copy; 2015.Company name All rights reserved.
+            </p>
+
+            <a href="#home" class="scroll to-Top">回到顶部!</a>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+    <!---->
+    <script type="text/javascript">
+        $(".nav_main li a:gt(0)").each(function () {
+            $this = $(this);
+            if ($this[0].href == String(window.location)) {
+                $this.parent().addClass("active");
+            }
+        });
+
+        //添加到购物车
+        function AddCart(id) {
+            var count = $("#txtcount").val();
+            if (count==undefined||count==null||count=="") {
+                count = 1;
+            }
+            $.post("/Shop/AddCart", { "id": id, "count": count }, function (data) {
+                var str = data.split(':');
+                if (str[0] == "ok") {
+                    alert(str[1]);
+                    window.location.reload();
+                } else if (str[0] == "nologin") {
+                    alert(str[1]);
+                    window.location = "/Account/Index?redirect=" + str[2] + id;
+                } else {
+                    alert(str[1]);
+                }
+            });
+        }
+    </script>
+    @RenderSection("foot", false)
+</body>
+</html>
+
+

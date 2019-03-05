@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0450f68d53a14ea49c348ae5b5327133" Name="Diagram1">
+        <EntityTypeShape EntityType="bookshopModel.ActionInfo" Width="1.5" PointX="10.728772395629797" PointY="12.850523656630202" />
+        <EntityTypeShape EntityType="bookshopModel.ArticelWords" Width="1.5" PointX="3.6414124349325023" PointY="28.6502799823183" />
+        <EntityTypeShape EntityType="bookshopModel.BookComment" Width="1.5" PointX="10.99245728505424" PointY="9.19325846861734" />
+        <EntityTypeShape EntityType="bookshopModel.Books" Width="1.5" PointX="2.1821770883082308" PointY="26.119741198662549" />
+        <EntityTypeShape EntityType="bookshopModel.Cart" Width="1.5" PointX="10.598174213710323" PointY="19.736134121071611" />
+        <EntityTypeShape EntityType="bookshopModel.Categories" Width="1.5" PointX="2.7305535928954154" PointY="14.510186649165203" />
+        <EntityTypeShape EntityType="bookshopModel.Contact" Width="1.5" PointX="9.9681025231108542" PointY="24.672056999370483" />
+        <EntityTypeShape EntityType="bookshopModel.EmailActive" Width="1.5" PointX="7.2986498304170784" PointY="24.855877500425969" />
+        <EntityTypeShape EntityType="bookshopModel.HotCount" Width="1.5" PointX="8.3933498656346224" PointY="2.3252995323041916" />
+        <EntityTypeShape EntityType="bookshopModel.keyWordsRank" Width="1.5" PointX="0.0042545981725000768" PointY="28.714087246318389" />
+        <EntityTypeShape EntityType="bookshopModel.OrderBook" Width="1.5" PointX="8.24324098240735" PointY="25.786073756304603" />
+        <EntityTypeShape EntityType="bookshopModel.Orders" Width="1.5" PointX="1.024300156638166" PointY="8.7194815914702986" />
+        <EntityTypeShape EntityType="bookshopModel.PayInfo_del" Width="1.5" PointX="7.6170984262680168" PointY="5.129936265354015" />
+        <EntityTypeShape EntityType="bookshopModel.PdfReader" Width="1.5" PointX="1.955136873738438" PointY="11.750614752876858" />
+        <EntityTypeShape EntityType="bookshopModel.Publishers" Width="1.5" PointX="9.3394626292118161" PointY="30.805590152184287" />
+        <EntityTypeShape EntityType="bookshopModel.recommend_log" Width="1.5" PointX="9.49996369215658" PointY="9.5128407522630134" />
+        <EntityTypeShape EntityType="bookshopModel.recommend_rating" Width="1.5" PointX="4.3194961810109653" PointY="22.020255516292647" />
+        <EntityTypeShape EntityType="bookshopModel.RoleInfo" Width="1.5" PointX="8.1282301340849266" PointY="15.693591527498137" />
+        <EntityTypeShape EntityType="bookshopModel.SearchDatails" Width="1.5" PointX="7.4424784721073127" PointY="6.8004236401992033" />
+        <EntityTypeShape EntityType="bookshopModel.Settings" Width="1.5" PointX="0.95902719207062714" PointY="15.812825135799509" />
+        <EntityTypeShape EntityType="bookshopModel.T_Email" Width="1.5" PointX="11.842859538198848" PointY="14.447021684817514" />
+        <EntityTypeShape EntityType="bookshopModel.Users" Width="1.5" PointX="8.1590809692438135" PointY="3.0300273164315277" />
+        <EntityTypeShape EntityType="bookshopModel.UserStates" Width="1.5" PointX="10.251531751012212" PointY="18.923541986813554" />
+        <AssociationConnector Association="bookshopModel.FK_RoleInfo_ActionInfo" />
+        <AssociationConnector Association="bookshopModel.FK_BookComment_Books" />
+        <AssociationConnector Association="bookshopModel.FK_BookComment_Users" />
+        <AssociationConnector Association="bookshopModel.FK_Book_Category" />
+        <AssociationConnector Association="bookshopModel.FK_Books_Publishers" />
+        <AssociationConnector Association="bookshopModel.FK_Cart_Books" />
+        <AssociationConnector Association="bookshopModel.FK_OrderBook_Book" />
+        <AssociationConnector Association="bookshopModel.FK_PdfReader_Books" />
+        <AssociationConnector Association="bookshopModel.FK_recommend_rating_Books" />
+        <AssociationConnector Association="bookshopModel.FK_Cart_Users" />
+        <AssociationConnector Association="bookshopModel.FK_EmailActive_Users" />
+        <AssociationConnector Association="bookshopModel.FK_OrderBook_Order" />
+        <AssociationConnector Association="bookshopModel.FK_Order_User" />
+        <AssociationConnector Association="bookshopModel.FK_PayInfo_Users" />
+        <AssociationConnector Association="bookshopModel.FK_PdfReader_Users" />
+        <AssociationConnector Association="bookshopModel.FK_recommend_rating_Users" />
+        <AssociationConnector Association="bookshopModel.FK_Users_RoleInfo" />
+        <AssociationConnector Association="bookshopModel.FK_Users_UserStates" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

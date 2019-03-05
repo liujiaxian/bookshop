@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "注册";
+    Layout = "~/Views/Shared/_LayoutAccount.cshtml";
+}
+
+ @using (Html.BeginForm("Regist", "Account", FormMethod.Post, new { id = "frm" }))
+            {
+                <div>
+                    <span>邮　　箱*</span>
+                    <input type="text" name="Mail">
+                </div>
+                <div>
+                    <span class="pass">密　　码*</span>
+                    <input type="password" name="LoginPwd" id="LoginPwd">
+                </div>
+                <div>
+                    <span>确认密码*</span>
+                    <input type="password" name="LoginRepwd">
+                </div>
+                <div>
+                    <span>安全验证*</span>
+                    <input type="text" name="Vcode" style="width:200px" maxlength="4">&nbsp;&nbsp;<img src="/Account/Vcode" width="100" onclick="this.src='/Account/Vcode?id='+Math.random()" />
+                </div>
+                <input type="submit" value="注册">                
+            }
+
+@section accountfooter{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script type="text/javascript">
+
+            $().ready(function () {
+                $("#frm").validate({
+                    rules: {
+                        Mail: {
+                            required: true,
+                            email: true,
+                        },
+                        LoginPwd: {
+                            required: true,
+                            minlength: 6,
+                            maxlength: 18,
+                        },
+                        LoginRepwd: {
+                            required: true,
+                            equalTo: "#LoginPwd",
+                        },
+                        Vcode: {
+                            required: true,
+                            maxlength: 4,
+                            minlength: 4,
+                        },
+                    },
+                    messages: {
+                        Mail: {
+                            required: "请输入邮箱！",
+                            email: "邮箱格式的不正确！"
+                        },
+                        LoginPwd: {
+                            required: "请输入密码！",
+                            minlength: "密码长度不能小于6位！",
+                            maxlength: "密码长度不能大于18位！",
+                        },
+                        LoginRepwd: {
+                            required: "请输入密码确认密码！",
+                            equalTo: "密码与确认密码不一致！",
+                        },
+                        Vcode: {
+                            required: "请输入验证码！",
+                            maxlength: "验证码长度为4位！",
+                            minlength: "验证码长度为4位！",
+                        },
+                    }
+                });
+            });
+    </script>
+}
